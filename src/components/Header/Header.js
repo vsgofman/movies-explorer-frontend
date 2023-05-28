@@ -1,9 +1,10 @@
 import './Header.css';
+import logo from '../../images/logo.svg';
 
 function Header() {
   return (
     <header className='header'>
-      <p></p>
+      <img className='header__logo' src={logo} alt='логотип' />
     </header>
   )
 }
