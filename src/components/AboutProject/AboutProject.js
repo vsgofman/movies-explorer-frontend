@@ -1,9 +1,10 @@
+import RunningTitle from '../RunningTitle/RunningTitle';
 import './AboutProject.css';
 
 function AboutProject() {
   return (
     <section className='project'>
-      <h2 className='project__title'>О проекте</h2>
+      <RunningTitle text='О проекте' />
       <ul className='project__block'>
         <li className='project__item'>
           <h3 className='item__title'>Дипломный проект включал 5 этапов</h3>
