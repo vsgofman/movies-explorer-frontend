@@ -22,9 +22,11 @@
 
 .techs__block {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fill, 90px);
   grid-column-gap: 10px;
-  width: 600px;
+  grid-row-gap: 10px;
+  flex-wrap: wrap;
+  max-width: 690px;
   margin: 100px auto 0;
   list-style-type: none;
 }
