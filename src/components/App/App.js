@@ -10,7 +10,7 @@ import Register from '../Register/Register';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <div className='page'>
         <Routes>
           <Route path='/' element={
