@@ -4,6 +4,10 @@
   justify-content: space-between;
   height: 74px;
   padding: 0 70px;
+  background-color: #fff;
+}
+
+.header_about-project {
   background-color: #F3C1F8;
 }
 

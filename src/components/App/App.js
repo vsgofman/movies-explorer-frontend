@@ -10,6 +10,7 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
 function App() {
+  
   return (
     <div className='App'>
       <div className='page'>
@@ -19,9 +20,15 @@ function App() {
               <Header />
               <Main />
               <Footer />
-            </>}
-          />
-          <Route path='/movies' element={<Movies />} />
+            </>
+          } />
+          <Route path='/movies' element={
+            <>
+              <Header />
+              <Movies />
+              <Footer />
+            </>
+          } />
           <Route path='/saved-movies' element={<SavedMovies />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/signin' element={<Login />} />
