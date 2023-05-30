@@ -1,4 +1,5 @@
 import './App.css';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,26 +11,32 @@ import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 
 function App() {
-  
+  const [loggedIn, setLoggedIn] = useState(true);
+
   return (
     <div className='App'>
       <div className='page'>
         <Routes>
           <Route path='/' element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <Main />
               <Footer />
             </>
           } />
           <Route path='/movies' element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <Movies />
               <Footer />
             </>
           } />
-          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route path='/saved-movies' element={
+            <>
+              <Header loggedIn={loggedIn} />
+              <SavedMovies />
+            </>
+          } />
           <Route path='/profile' element={<Profile />} />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<Register />} />
