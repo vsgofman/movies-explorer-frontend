@@ -2,10 +2,10 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function Movies({ onSelectShortFilms }) {
   return (
     <section className='movies'>
-      <SearchForm />
+      <SearchForm onSelectShortFilms={onSelectShortFilms} />
       <MoviesCardList />
     </section>
   )

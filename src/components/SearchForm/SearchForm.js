@@ -1,8 +1,11 @@
 import './SearchForm.css';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import logo from '../../images/logo.svg';
 
 function SearchForm() {
   return (
-    <form className='search-form'>
+    <form className='search'>
+      <FilterCheckbox />
     </form>
   )
 }
