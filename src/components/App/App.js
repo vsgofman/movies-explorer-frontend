@@ -38,7 +38,12 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={
+            <>
+              <Header loggedIn={loggedIn} />
+              <Profile />
+            </>
+          } />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<Register />} />
         </Routes>
