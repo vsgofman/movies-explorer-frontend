@@ -35,6 +35,7 @@ function App() {
             <>
               <Header loggedIn={loggedIn} />
               <SavedMovies />
+              <Footer />
             </>
           } />
           <Route path='/profile' element={<Profile />} />
