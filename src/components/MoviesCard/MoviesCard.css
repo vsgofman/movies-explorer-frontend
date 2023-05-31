@@ -10,7 +10,7 @@
 
 .movies-card__info {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 0 16px 16px;
 }

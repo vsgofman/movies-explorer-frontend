@@ -40,6 +40,9 @@
   border: none;
   border-radius: 48px;
   background-color: #000;
+  background-image: url(../../images/icon__button-search.png);
+  background-repeat: no-repeat;
+  background-position: center;
   cursor: pointer;
 }
 
