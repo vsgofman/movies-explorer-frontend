@@ -3,6 +3,7 @@ import './Header.css';
 import logo from '../../images/logo.svg';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
+// import Menu from '../Menu/Menu';
 
 function Header({ loggedIn }) {
   let location = useLocation();
