@@ -2,14 +2,24 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import movies from '../../utils/constants';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList() {
   return (
     <section className='movies-list'>
-      {
-        movies.map((movie, i) => (
-          <MoviesCard movie={movie} key={movie._id} />
-        ))
-      }
+      <div className='movies-list__block'>
+        {
+          movies.map((movie, i) => (
+            <MoviesCard movie={movie} key={movie._id} />
+          ))
+        }
+      </div>
+      <button
+        className='movies-list__button'
+        id="button-more"
+        type="button"
+        name="more"
+      >
+        Eщё
+      </button>
     </section>
   )
 }
