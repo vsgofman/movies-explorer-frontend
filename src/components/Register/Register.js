@@ -9,11 +9,14 @@ function Register() {
       textButtonRedirect='Войти'
       questionToRedirect='Уже зарегистрированы?'
       redirectTo='/signin'>
-      <input
-        id="name-input"
-        className="start-page__input"
-        name="register-name" placeholder="Имя" required
-      />
+      <>
+        <p className='form__caption'>Имя</p>
+        <input
+          id="name-input"
+          className="start-page__input"
+          name="register-name" required
+        />
+      </>
     </StartPage>
   )
 }

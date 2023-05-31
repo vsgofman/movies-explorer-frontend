@@ -9,7 +9,7 @@ function Login() {
       textButtonRedirect='Регистрация'
       questionToRedirect='Ещё не зарегистрированы?'
       redirectTo='/signup'
-      />
+    />
   )
 }
 

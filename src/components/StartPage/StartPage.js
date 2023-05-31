@@ -7,25 +7,30 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
     <section className="start-page">
       <img className='start-page__logo' src={logo} alt='логотип' />
       <h2 className="start-page__title">{title}</h2>
-      <form className="form start-page__form">
+      <form className="form start-page__form" id="start-page__form">
         {children}
+        <p className='form__caption'>E-mail</p>
         <input
           id="email-input"
           className="start-page__input"
-          type="email" name="email" placeholder="Email" required
+          type="email" name="email" required
         />
+        <p className='form__caption'>Пароль</p>
         <input
           id="password-input"
           className="start-page__input"
-          type="password" name="password" placeholder="Пароль" required
+          type="password" name="password" required
         />
-        <button
-          className="start-page__button"
-          type="submit" aria-label={textButtonSubmit}>{textButtonSubmit}</button>
       </form>
-      <div className="start-page__signup">
-        <p className="start-page__signup-text">{questionToRedirect}</p>
-        <Link to={redirectTo} className="start-page__signup-link">{textButtonRedirect}</Link>
+      <button
+        className="start-page__button"
+        type="submit" 
+        form="start-page__form"
+        aria-label={textButtonSubmit}>{textButtonSubmit}
+      </button>
+      <div className="start-page__redirect">
+        <p className="redirect__text">{questionToRedirect}</p>
+        <Link to={redirectTo} className="redirect__link">{textButtonRedirect}</Link>
       </div>
     </section>
   )
