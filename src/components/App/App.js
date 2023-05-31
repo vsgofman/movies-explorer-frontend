@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -46,6 +47,7 @@ function App() {
           } />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<Register />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </div>
