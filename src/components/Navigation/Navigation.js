@@ -8,8 +8,8 @@ function Navigation() {
       <NavLink className='navigation__link navigation__link_movies' to='/movies'>Фильмы</NavLink>
       <NavLink className='navigation__link navigation__link_saved-movies' to='/saved-movies'>Сохранённые фильмы</NavLink>
       <NavLink className='navigation__link navigation__link_profile' to='/profile'>
-        <img className='menu__img' src={iconProfile} alt='значок профиля' />
-        <p className='menu__text'>Аккаунт</p>
+        <img className='navigation__img' src={iconProfile} alt='значок профиля' />
+        <p className='navigation__text'>Аккаунт</p>
       </NavLink>
     </section>
   )

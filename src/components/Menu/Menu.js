@@ -6,7 +6,7 @@ function Menu() {
   return (
     <>
       <button className='menu__button_open' />
-      <div className='menu menu_opened'>
+      <div className='menu'>
         <div className='menu__container'>
           <button className='menu__button_close' />
           <div className='menu__block'>
