@@ -14,3 +14,14 @@
   bottom: -23px;
   left: 0;
 }
+
+@media screen and (max-width: 550px) {
+  .running-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .running-title::after {
+    bottom: -28px;
+  }
+}
