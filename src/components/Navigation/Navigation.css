@@ -49,3 +49,9 @@
   left: 50%;
   transform: translate(-32%, 50%);
 }
+
+@media screen and (max-width: 850px) {
+  .navigation {
+    display: none;
+  }
+}
