@@ -3,7 +3,7 @@
 }
 
 .portfolio__title {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
@@ -28,4 +28,10 @@
   font-weight: 400;
   line-height: 50px;
   color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0 50px 70px;
+  }
 }
