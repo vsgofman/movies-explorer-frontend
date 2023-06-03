@@ -18,8 +18,10 @@ function SearchForm() {
           className='search__button'
           aria-label='Поиск'
         />
-        <FilterCheckbox />
-        <p className='search__text'>Короткометражки</p>
+        <div className='search__filter'>
+          <FilterCheckbox />
+          <p className='search__text'>Короткометражки</p>
+        </div>
       </form>
     </section>
 
