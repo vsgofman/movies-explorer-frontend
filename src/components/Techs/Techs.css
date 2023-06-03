@@ -75,7 +75,7 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 580px) {
   .techs {
     padding: 70px 18px;
   }
@@ -94,12 +94,19 @@
 
   .techs__subtitle {
     max-width: 301px;
+    font-size: 11px;
+    line-height: 16px;
   }
   
   .techs__block {
     grid-template-columns: repeat(3, minmax(0, 84px));
     grid-template-rows: repeat(3, 57px);
     max-width: 275px;
+  }
+
+  .techs__item {
+    font-size: 12px;
+    line-height: 15px;
   }
 }
 
