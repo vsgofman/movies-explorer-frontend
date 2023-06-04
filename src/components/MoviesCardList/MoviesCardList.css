@@ -9,7 +9,7 @@
 
 .movies-list__block {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-auto-rows: minmax(237px, 1fr);
   grid-gap: 37px 24px;
   width: 100%;
@@ -25,6 +25,18 @@
   background-color: #F9F9F9;
   border: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-list__block {
+    grid-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .movies-list__block {
+    max-width: 400px;
+  }
 }
 
 @media screen and (max-width: 550px) {
