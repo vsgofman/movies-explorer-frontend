@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.svg';
 import NavTab from '../NavTab/NavTab';
@@ -11,7 +11,9 @@ function Header({ loggedIn }) {
 
   return (
     <header className={`header ${addModifier ? 'header_about-project' : ''}`}>
-      <img className='header__logo' src={logo} alt='логотип' />
+      <Link className='header__link' to='/'>
+        <img className='header__logo' src={logo} alt='логотип' />
+      </Link>
       {loggedIn ? <Navigation /> : <NavTab />}
     </header>
   )

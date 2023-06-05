@@ -7,6 +7,11 @@
   background-color: #fff;
 }
 
+.header__link {
+  width: 38px;
+  height: 38px;
+}
+
 .header_about-project {
   background-color: #F3C1F8;
 }

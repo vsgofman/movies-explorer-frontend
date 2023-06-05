@@ -10,6 +10,18 @@
   color: #A0A0A0;
 }
 
+.portfolio__block {
+  list-style-type: none;
+}
+
+.block__item {
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.block__item:last-child {
+  border: none;
+}
+
 .portfolio__link {
   display: flex;
   justify-content: space-between;
@@ -17,11 +29,6 @@
   height: 90px;
   padding-right: 5px;
   text-decoration: none;
-  border-bottom: 1px solid #E8E8E8;
-}
-
-.portfolio__link:last-child {
-  border: none;
 }
 
 .link__text {
@@ -51,7 +58,7 @@
   }
 
   .portfolio__link {
-    height: 68px;
+    height: 67px;
     padding-right: 2px;
   }
 
