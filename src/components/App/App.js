@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <div className='App'>

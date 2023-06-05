@@ -14,7 +14,8 @@ function Register() {
         <input
           id="name-input"
           className="start-page__input"
-          name="register-name" required
+          name="register-name" 
+          required
         />
       </div>
     </StartPage>

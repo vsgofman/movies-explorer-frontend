@@ -7,13 +7,14 @@ import Navigation from '../Navigation/Navigation';
 
 function Header({ loggedIn }) {
   let location = useLocation();
-  const addModifier = location.pathname === '/';
+  const addModColor = location.pathname === '/';
 
   return (
-    <header className={`header ${addModifier ? 'header_about-project' : ''}`}>
+    <header className={`header ${addModColor ? 'header_color_pink' : ''}`}>
       <Link className='header__link' to='/'>
         <img className='header__logo' src={logo} alt='логотип' />
       </Link>
+      <button className={`button-menu header__button-menu ${addModColor ? 'button-menu_color_pink' : ''}`} />
       {loggedIn ? <Navigation /> : <NavTab />}
     </header>
   )

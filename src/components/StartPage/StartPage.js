@@ -14,7 +14,8 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
           <input
             id="email-input"
             className="start-page__input"
-            type="email" name="email" required
+            type="email" name="email" 
+            required
           />
         </div>
         <div className='start-page__input-block'>
@@ -22,7 +23,8 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
           <input
             id="password-input"
             className="start-page__input"
-            type="password" name="password" required
+            type="password" name="password" 
+            required
           />
           <span className='input__error'>Что-то пошло не так...</span>
         </div>

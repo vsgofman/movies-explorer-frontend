@@ -24,7 +24,7 @@
 
 .start-page__input-block {
   position: relative;
-  margin-bottom: 35px;
+  margin-bottom: 27px;
 }
 
 .start-page__input-block:last-child {
@@ -54,10 +54,12 @@
 .start-page__input {
   display: block;
   width: 100%;
+  padding-bottom: 8px;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
   border: none;
+  z-index: 5;
 }
 
 .start-page__input_error {
@@ -77,6 +79,7 @@
 
 .start-page__input:focus {
   outline: none;
+  border-bottom: 1px solid #000;
 }
 
 .start-page__button {
