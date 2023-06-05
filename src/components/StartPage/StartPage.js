@@ -9,7 +9,7 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
       <h2 className="start-page__title">{title}</h2>
       <form className="form start-page__form" id="start-page__form">
         {children}
-        <div className='start-page__input-block'>
+        <div className='input-block start-page__input-block'>
           <p className='form__caption'>E-mail</p>
           <input
             id="email-input"
@@ -18,7 +18,7 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
             required
           />
         </div>
-        <div className='start-page__input-block'>
+        <div className='input-block start-page__input-block'>
           <p className='form__caption'>Пароль</p>
           <input
             id="password-input"
@@ -26,7 +26,7 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
             type="password" name="password" 
             required
           />
-          <span className='input__error'>Что-то пошло не так...</span>
+          <span className='input-block__error'>Что-то пошло не так...</span>
         </div>
       </form>
       <button
@@ -35,7 +35,7 @@ function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedi
         form="start-page__form"
         aria-label={textButtonSubmit}>{textButtonSubmit}
       </button>
-      <div className="start-page__redirect">
+      <div className="redirect start-page__redirect">
         <p className="redirect__text">{questionToRedirect}</p>
         <Link to={redirectTo} className="redirect__link">{textButtonRedirect}</Link>
       </div>

@@ -19,7 +19,7 @@ function MoviesCard(props) {
           <p className='movies-card__duration'>{`${hours}ч ${minutes}м`}</p>
         </div>
         <button
-          className={`movies-card__button ${isLiked ? 'movies-card__button_active' : ''}`}
+          className={`movies-card__button-like ${isLiked ? 'movies-card__button-like_active' : ''}`}
           onClick={likedMovie}
           id="button-like"
           type="button"

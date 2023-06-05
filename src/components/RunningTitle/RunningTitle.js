@@ -2,7 +2,9 @@ import './RunningTitle.css';
 
 function RunningTitle({ text }) {
   return (
-    <p className='running-title'>{text}</p>
+    <article className='running-title'>
+      <p className='running-title__text'>{text}</p>
+    </article>
   )
 }
 

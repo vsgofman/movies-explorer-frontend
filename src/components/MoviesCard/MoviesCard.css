@@ -30,7 +30,7 @@
   color: #A0A0A0;
 }
 
-.movies-card__button {
+.movies-card__button-like {
   width: 30px;
   height: 30px;
   margin-top: 19px;
@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 
-.movies-card__button_active {
+.movies-card__button-like_active {
   background-image: url(../../images/movies-card__button_active.png);
 }
 
