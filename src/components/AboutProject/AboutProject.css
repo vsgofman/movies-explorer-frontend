@@ -1,0 +1,136 @@
+.project {
+  padding: 110px 70px 141px;
+}
+
+.project__block {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  margin-top: 94px;
+  list-style-type: none;
+}
+
+.item__title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.item__text {
+  margin-top: 26px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.project__time {
+  display: grid;
+  grid-template-columns: minmax(0, 20%) minmax(0, 80%);
+  height: 36px;
+  margin-top: 110px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.time__item {
+  position: relative;
+  padding: 9px 0;
+  text-align: center;
+}
+
+.time__item_part_backend {
+  color: #fff;
+  background-color: #000;
+}
+
+.time__item_part_backend::after {
+  content: 'Back-end';
+  position: absolute;
+  width: 100%;
+  bottom: -31px;
+  left: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #A0A0A0;
+}
+
+.time__item_part_frontend {
+  background-color: #F2F2F2;
+}
+
+.time__item_part_frontend::after {
+  content: 'Front-end';
+  position: absolute;
+  width: 100%;
+  bottom: -31px;
+  left: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 768px) {
+  .project {
+    padding: 90px 50px 121px;
+  }
+
+  .project__block {
+    grid-gap: 30px;
+  }
+
+  .item__text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .project__time {
+    margin-top: 93px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .project {
+    padding: 70px 18px 93px;
+  }
+
+  .project__block {
+    min-height: 200px;
+    margin-top: 89px;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 50%));
+    grid-gap: 56px;
+  }
+
+  .item__text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .project__time {
+    grid-template-columns: minmax(0, 35%) minmax(0, 65%);
+    height: 35px;
+    margin-top: 60px;
+    font-size: 11px;
+    line-height: 13.5px;
+  }
+
+  .time__item_part_backend::after {
+    bottom: -23px;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+  }
+
+  .time__item_part_frontend::after {
+    bottom: -23px;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+  }
+}

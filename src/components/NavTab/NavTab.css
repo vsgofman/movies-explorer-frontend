@@ -1,0 +1,28 @@
+.navtab__link {
+  text-decoration: none;
+  margin-right: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #000;
+}
+
+.navtab__link:last-child {
+  margin-right: 0;
+}
+
+.navtab__link-button {
+  width: 76px;
+  height: 32px;
+  color: #fff;
+  background-color: #000;
+  padding: 8px 20px;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 550px) {
+  .navtab__link {
+    margin-right: 14px;
+    font-size: 10px;
+  }
+}

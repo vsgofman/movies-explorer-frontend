@@ -1,0 +1,162 @@
+.start-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 396px;
+  height: 100vh;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+.start-page__title {
+  margin: 40px 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+.start-page__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.start-page__input-block {
+  position: relative;
+  margin-bottom: 27px;
+}
+
+.start-page__input-block:last-child {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.form__caption {
+  position: relative;
+  margin-bottom: 5px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #A0A0A0;
+}
+
+.form__caption::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #E8E8E8;
+  bottom: -32px;
+  left: 0;
+}
+
+.start-page__input {
+  display: block;
+  width: 100%;
+  padding-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  border: none;
+  z-index: 5;
+}
+
+.start-page__input_error {
+  color: #FF4062;
+}
+
+.input__error {
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: -28px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #FF4062;
+}
+
+.start-page__input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+.start-page__button {
+  position: absolute;
+  left: 0;
+  bottom: 103px;
+  width: 100%;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.start-page__redirect {
+  position: absolute;
+  left: 0;
+  bottom: 70px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.redirect__text {
+  margin-right: 6px;
+  color: #A0A0A0;
+}
+
+.redirect__link {
+  text-decoration: none;
+  color: #000;
+}
+
+@media screen and (max-width: 800px) {
+  .start-page {
+    height: 1024px;
+    padding-top: 232px;
+  }
+
+  .start-page__button {
+    bottom: 265px;
+  }
+
+  .start-page__redirect {
+    bottom: 232px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .start-page {
+    width: 85%;
+    min-width: 260px;
+    height: 780px;
+    padding-top: 56px;
+    align-items: center;
+  }
+
+  .start-page__title {
+    margin: 80px 0;
+  }
+
+  .start-page__button {
+    bottom: 59px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .start-page__redirect {
+    bottom: 30px;
+    font-size: 12px;
+    line-height: 14.5px;
+  }
+}
