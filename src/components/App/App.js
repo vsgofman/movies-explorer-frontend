@@ -1,4 +1,5 @@
 import './App.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -13,44 +14,47 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
 
   return (
-    <div className='App'>
-      <div className='page'>
-        <Routes>
-          <Route path='/' element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Main />
-              <Footer />
-            </>
-          } />
-          <Route path='/movies' element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Movies />
-              <Footer />
-            </>
-          } />
-          <Route path='/saved-movies' element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <SavedMovies />
-              <Footer />
-            </>
-          } />
-          <Route path='/profile' element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Profile />
-            </>
-          } />
-          <Route path='/signin' element={<Login />} />
-          <Route path='/signup' element={<Register />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='App'>
+        <div className='page'>
+          <Routes>
+            <Route path='/' element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <Main />
+                <Footer />
+              </>
+            } />
+            <Route path='/movies' element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <Movies />
+                <Footer />
+              </>
+            } />
+            <Route path='/saved-movies' element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <SavedMovies />
+                <Footer />
+              </>
+            } />
+            <Route path='/profile' element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <Profile />
+              </>
+            } />
+            <Route path='/signin' element={<Login />} />
+            <Route path='/signup' element={<Register />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
