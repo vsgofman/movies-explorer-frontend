@@ -1,7 +1,8 @@
 import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { getAllMovies } from '../../utils/MoviesApi';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -15,6 +16,14 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    getAllMovies()
+      .then((moviesData) => {
+        setMovies(moviesData);
+      }).catch((err) => console.log(`Данные не загрузились. ${err}`))
+  }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -31,7 +40,9 @@ function App() {
             <Route path='/movies' element={
               <>
                 <Header loggedIn={loggedIn} />
-                <Movies />
+                <Movies
+                  movies={movies}
+                />
                 <Footer />
               </>
             } />

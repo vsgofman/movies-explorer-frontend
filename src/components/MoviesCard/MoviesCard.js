@@ -1,6 +1,5 @@
 import './MoviesCard.css';
 import { useState } from 'react';
-import cardImage from '../../images/Baskiya_vzryv_realnosti.svg';
 
 function MoviesCard(props) {
   const movie = props.movie;
@@ -12,7 +11,7 @@ function MoviesCard(props) {
 
   return (
     <article className='movies-card'>
-      <img className='movies-card__photo' src={cardImage} alt='постер фильма' />
+      <img className='movies-card__photo' src={`https://api.nomoreparties.co/${movie.image.url}`} alt='постер фильма' />
       <div className='movies-card__info'>
         <div className='movies-card__text'>
           <h3 className='movies-card__title'>{movie.nameRU}</h3>

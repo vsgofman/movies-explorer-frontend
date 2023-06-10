@@ -1,8 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import movies from '../../utils/constants';
 
-function MoviesCardList() {
+function MoviesCardList({ movies }) {
   return (
     <section className='movies-list'>
       <div className='movies-list__block'>
