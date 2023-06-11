@@ -5,6 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ movies }) {
   const [amountCards, setAmountCards] = useState(12);
+
   useEffect(() => {
     let timer;
     const changeAmountTimer = () => {
@@ -21,7 +22,16 @@ function MoviesCardList({ movies }) {
       return setAmountCards(8);
     }
     setAmountCards(12);
-  }
+  };
+
+  function handleMoreMovies() {
+      if (window.innerWidth > 917) {
+        return setAmountCards(amountCards + 3);
+      }
+      if (window.innerWidth < 918) {
+        return setAmountCards(amountCards + 2);
+      }
+  };
 
   return (
     <section className='movies-list'>
@@ -32,14 +42,15 @@ function MoviesCardList({ movies }) {
           ))
         }
       </div>
-      <button
+      {amountCards < movies.length && (<button
         className='movies-list__button'
         id="button-more"
         type="button"
         name="more"
+        onClick={handleMoreMovies}
       >
         Eщё
-      </button>
+      </button>)}
     </section>
   )
 }
