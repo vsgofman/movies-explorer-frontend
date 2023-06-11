@@ -12,6 +12,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -30,13 +31,12 @@ function App() {
       <div className='App'>
         <div className='page'>
           <Routes>
-            <Route path='/' element={
-              <>
-                <Header loggedIn={loggedIn} />
-                <Main />
-                <Footer />
-              </>
-            } />
+            <Route path='/'
+              element={<ProtectedRoute
+                element={Main}
+                loggedIn={loggedIn}
+              />}
+            />
             <Route path='/movies' element={
               <>
                 <Header loggedIn={loggedIn} />
