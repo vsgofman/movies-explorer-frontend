@@ -17,12 +17,12 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
 
   useEffect(() => {
     getAllMovies()
       .then((moviesData) => {
-        setMovies(moviesData);
+        setAllMovies(moviesData);
       }).catch((err) => console.log(`Данные не загрузились. ${err}`))
   }, [])
 
@@ -31,34 +31,33 @@ function App() {
       <div className='App'>
         <div className='page'>
           <Routes>
-            <Route path='/'
-              element={<ProtectedRoute
-                element={Main}
+            <Route path='/' element={
+              <Main
                 loggedIn={loggedIn}
-              />}
+              />
+            } />
+            <Route path='/movies'
+              element={
+                <ProtectedRoute
+                  element={Movies}
+                  movies={allMovies}
+                  loggedIn={loggedIn}
+                />}
             />
-            <Route path='/movies' element={
-              <>
-                <Header loggedIn={loggedIn} />
-                <Movies
-                  movies={movies}
-                />
-                <Footer />
-              </>
-            } />
-            <Route path='/saved-movies' element={
-              <>
-                <Header loggedIn={loggedIn} />
-                <SavedMovies />
-                <Footer />
-              </>
-            } />
-            <Route path='/profile' element={
-              <>
-                <Header loggedIn={loggedIn} />
-                <Profile />
-              </>
-            } />
+            <Route path='/saved-movies'
+              element={
+                <ProtectedRoute
+                  element={SavedMovies}
+                  loggedIn={loggedIn}
+                />}
+            />
+            <Route path='/profile'
+              element={
+                <ProtectedRoute
+                  element={Profile}
+                  loggedIn={loggedIn}
+                />}
+            />
             <Route path='/signin' element={<Login />} />
             <Route path='/signup' element={<Register />} />
             <Route path="*" element={<PageNotFound />} />

@@ -1,6 +1,6 @@
+import { BlockPage } from '../BlockPage/BlockPage';
 import AboutMe from '../AboutMe/AboutMe';
 import AboutProject from '../AboutProject/AboutProject';
-import { BlockPage } from '../BlockPage/BlockPage';
 import Portfolio from '../Portfolio/Portfolio';
 import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
