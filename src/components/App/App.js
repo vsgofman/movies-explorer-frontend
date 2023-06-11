@@ -10,23 +10,29 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import Preloader from '../Preloader/Preloader';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
   const [allMovies, setAllMovies] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     getAllMovies()
       .then((moviesData) => {
         setAllMovies(moviesData);
       }).catch((err) => console.log(`Данные не загрузились. ${err}`))
+      .finally(() => setIsLoading(false))
   }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
+        {isLoading ? 
+        <Preloader /> : 
         <div className='page'>
           <Routes>
             <Route path='/' element={
@@ -60,7 +66,7 @@ function App() {
             <Route path='/signup' element={<Register />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-        </div>
+        </div>}
       </div>
     </CurrentUserContext.Provider>
   );
