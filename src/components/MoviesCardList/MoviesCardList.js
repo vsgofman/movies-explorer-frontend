@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import CardListInfo from '../CardListInfo/CardListInfo';
 
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, showAllMovies }) {
   const [amountCards, setAmountCards] = useState(12);
 
   useEffect(() => {
@@ -25,12 +26,12 @@ function MoviesCardList({ movies }) {
   };
 
   function handleMoreMovies() {
-      if (window.innerWidth > 917) {
-        return setAmountCards(amountCards + 3);
-      }
-      if (window.innerWidth < 918) {
-        return setAmountCards(amountCards + 2);
-      }
+    if (window.innerWidth > 917) {
+      return setAmountCards(amountCards + 3);
+    }
+    if (window.innerWidth < 918) {
+      return setAmountCards(amountCards + 2);
+    }
   };
 
   return (
@@ -42,6 +43,13 @@ function MoviesCardList({ movies }) {
           ))
         }
       </div>
+      {!showAllMovies &&
+        <>
+          <CardListInfo 
+            text={'Введите запрос для поиска'}
+          />
+          <button>Показать все фильмы</button>
+        </>}
       {amountCards < movies.length && (<button
         className='movies-list__button'
         id="button-more"

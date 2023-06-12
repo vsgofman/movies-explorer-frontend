@@ -2,10 +2,14 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import iconInput from '../../images/icon__input-search.png';
 
-function SearchForm({ shortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, filterMovies }) {
+function SearchForm({ shortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, filterMovies, setMoviesList, setShowAllMovies }) {
 
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
+    if (evt.target.value === '') {
+      setShowAllMovies(false);
+      setMoviesList(JSON.parse(localStorage.getItem('все карточки')))
+    }
   }
 
   function handleFilterMovies(evt) {
