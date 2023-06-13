@@ -1,20 +1,25 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import iconInput from '../../images/icon__input-search.png';
+import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
 
-function SearchForm({ shortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, filterMovies, setMoviesList, setShowAllMovies }) {
+function SearchForm({ shortMoviesOnly, setShortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, searchMovies, setMoviesList }) {
 
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
-    if (evt.target.value === '') {
-      setShowAllMovies(false);
-      setMoviesList(JSON.parse(localStorage.getItem('все карточки')))
+    if (evt.target.value === '' && getLocalStorageItem('foundMovies')) {
+      setMoviesList(getLocalStorageItem('allMovies'))
+      setLocalStorageItem(false, 'checkbox')
+      setShortMoviesOnly(false)
+      localStorage.removeItem('foundMovies')
+      localStorage.removeItem('inputValue')
+      localStorage.removeItem('shortMovies')
     }
   }
 
   function handleFilterMovies(evt) {
     evt.preventDefault();
-    filterMovies();
+    searchMovies();
   }
 
   return (

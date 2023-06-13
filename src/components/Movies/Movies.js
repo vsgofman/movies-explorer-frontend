@@ -3,22 +3,24 @@ import { BlockPage } from '../BlockPage/BlockPage';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ selectShortMovies, shortMoviesOnly, movies, loggedIn, searchInputValue, setSearchInputValue, filterMovies, setMoviesList, setShowAllMovies, showAllMovies }) {
+function Movies({ selectShortMovies, shortMoviesOnly, movies, loggedIn, searchInputValue, setSearchInputValue, searchMovies, setMoviesList, handleShowAllMovies, showAllMovies, setShortMoviesOnly }) {
   return (
     <BlockPage loggedIn={loggedIn}>
       <section className='movies'>
         <SearchForm
           shortMoviesOnly={shortMoviesOnly}
+          setShortMoviesOnly={setShortMoviesOnly}
           selectShortMovies={selectShortMovies}
           searchInputValue={searchInputValue}
           setSearchInputValue={setSearchInputValue}
-          filterMovies={filterMovies}
+          searchMovies={searchMovies}
           setMoviesList={setMoviesList}
-          setShowAllMovies={setShowAllMovies}
+          showAllMovies={showAllMovies}
         />
         <MoviesCardList
           movies={movies}
           showAllMovies={showAllMovies}
+          handleShowAllMovies={handleShowAllMovies}
         />
       </section>
     </BlockPage>

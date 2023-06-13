@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import CardListInfo from '../CardListInfo/CardListInfo';
+import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
 
 
-function MoviesCardList({ movies, showAllMovies }) {
+function MoviesCardList({ movies, showAllMovies, handleShowAllMovies }) {
   const [amountCards, setAmountCards] = useState(12);
 
   useEffect(() => {
@@ -43,13 +44,23 @@ function MoviesCardList({ movies, showAllMovies }) {
           ))
         }
       </div>
-      {!showAllMovies &&
-        <>
-          <CardListInfo 
-            text={'Введите запрос для поиска'}
-          />
-          <button>Показать все фильмы</button>
-        </>}
+      {!getLocalStorageItem('showAllMovies') && movies.length === 0 &&
+        <CardListInfo
+          text={'Введите запрос для поиска'}
+        />
+      }
+      {getLocalStorageItem('shortMovies') && getLocalStorageItem('foundMovies') && movies.length === 0 &&
+        <CardListInfo
+          text={'Ничего не найдено'}
+        />}
+      {getLocalStorageItem('foundMovies') && movies.length === 0 &&
+        <CardListInfo
+          text={'Ничего не найдено'}
+        />}
+
+      {!getLocalStorageItem('showAllMovies') &&
+        <button onClick={handleShowAllMovies}>Показать все фильмы</button>
+      }
       {amountCards < movies.length && (<button
         className='movies-list__button'
         id="button-more"
