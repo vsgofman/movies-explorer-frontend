@@ -15,7 +15,7 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 import { getAllMovies } from '../../utils/MoviesApi';
-import { register, authorize, getContent } from '../../utils/Auth';
+import { register, authorize } from '../../utils/Auth';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,22 +46,6 @@ function App() {
   useEffect(() => {
     tokenCheck()
   }, [])
-
-  // useEffect(() => {
-  //   if (loggedIn === true) {
-  //     setIsLoading(true);
-  //     Promise.all([
-  //       getAllMovies(),
-  //       mainApi.getSavedMovies()
-  //     ]).then(([allMovies, SavedMovies]) => {
-  //       console.log(savedMovies);
-  //       setLocalStorageItem(allMovies, 'allMovies');
-  //       // setLocalStorageItem(savedMovies, 'savedMovies');
-  //       setSavedMovies(SavedMovies)
-  //     }).catch((err) => console.log(`Данные не загрузились. ${err}`))
-  //       .finally(() => setIsLoading(false))
-  //   }
-  // }, [loggedIn])
 
   useEffect(() => {
     mainApi.getSavedMovies()
@@ -137,6 +121,14 @@ function App() {
   }
 
   function searchMovies() {
+    if (getLocalStorageItem('allMovies' === null)) {
+      setIsLoading(true);
+      getAllMovies()
+        .then((allMovies) => {
+          setLocalStorageItem(allMovies, 'allMovies');
+        }).catch((err) => console.log(`Данные не загрузились. ${err}`))
+        .finally(() => setIsLoading(false))
+    }
     let foundMovies = getLocalStorageItem('allMovies').filter((movie) => (
       movie.nameRU.toLowerCase().includes(searchInputValue.toLowerCase())
     ))
