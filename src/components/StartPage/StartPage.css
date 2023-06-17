@@ -16,12 +16,6 @@
   line-height: 29px;
 }
 
-.start-page__form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 .start-page__input-block {
   position: relative;
   margin-bottom: 27px;

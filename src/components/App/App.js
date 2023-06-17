@@ -1,8 +1,8 @@
 import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useCallback } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { getAllMovies } from '../../utils/MoviesApi';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -13,17 +13,65 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Preloader from '../Preloader/Preloader';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
+import mainApi from '../../utils/MainApi';
+import { getAllMovies } from '../../utils/MoviesApi';
+import { register, authorize, getContent } from '../../utils/Auth';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem("loggedIn") || true
+    localStorage.getItem('loggedIn') || false
   );
   const [currentUser, setCurrentUser] = useState({});
   const [shortMoviesOnly, setShortMoviesOnly] = useState(false);
   const [showAllMovies, setShowAllMovies] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const tokenCheck = useCallback(() => {
+    const jwt = localStorage.getItem('jwt')
+    mainApi.setHeaderToken(jwt)
+    if (jwt !== null) mainApi.getProfile()
+      .then((res) => {
+        setCurrentUser(res)
+        setLoggedIn(true)
+        setLocalStorageItem(true, 'loggedIn')
+        navigate(location.pathname)
+      }).catch((err) => console.log(`Некорректный токен. ${err}`))
+  }, [navigate])
+
+  useEffect(() => {
+    tokenCheck()
+  }, [])
+
+  // useEffect(() => {
+  //   if (loggedIn === true) {
+  //     setIsLoading(true);
+  //     Promise.all([
+  //       getAllMovies(),
+  //       mainApi.getSavedMovies()
+  //     ]).then(([allMovies, SavedMovies]) => {
+  //       console.log(savedMovies);
+  //       setLocalStorageItem(allMovies, 'allMovies');
+  //       // setLocalStorageItem(savedMovies, 'savedMovies');
+  //       setSavedMovies(SavedMovies)
+  //     }).catch((err) => console.log(`Данные не загрузились. ${err}`))
+  //       .finally(() => setIsLoading(false))
+  //   }
+  // }, [loggedIn])
+
+  useEffect(() => {
+    mainApi.getSavedMovies()
+      .then(res => {
+        console.log(res);
+        setSavedMovies(res)
+        setLocalStorageItem(res, 'savedMovies')
+      })
+      .catch((err) => console.log(`Данные не загрузились. ${err}`))
+  }, [loggedIn])
 
   useEffect(() => {
     let checkbox = getLocalStorageItem('checkbox');
@@ -34,9 +82,10 @@ function App() {
       setSearchInputValue(getLocalStorageItem('inputValue'))
       if (checkbox === true) {
         setMoviesList(shortMovies);
+        setShortMoviesOnly(checkbox);
         return;
       } else if (checkbox === false) {
-        setMoviesList(shortMovies);
+        setMoviesList(foundMovies);
         return;
       } else if (shortMovies.length !== 0) {
         // выводим ничего не найдено
@@ -44,17 +93,15 @@ function App() {
       }
     }
     if (getLocalStorageItem('showAllMovies')) {
-      setMoviesList(getLocalStorageItem('allMovies'));
+      if (checkbox === true) {
+        setShortMoviesOnly(checkbox);
+        setMoviesList(shortMovies);
+        return;
+      } else if (checkbox === false) {
+        setMoviesList(getLocalStorageItem('allMovies'));
+        return;
+      }
     }
-  }, [])
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllMovies()
-      .then((allMovies) => {
-        setLocalStorageItem(allMovies, 'allMovies');
-      }).catch((err) => console.log(`Данные не загрузились. ${err}`))
-      .finally(() => setIsLoading(false))
   }, [])
 
   function toggleShortMovies() {
@@ -110,6 +157,66 @@ function App() {
     setMoviesList(getLocalStorageItem('allMovies'));
   }
 
+  function handleRegister({ name, email, password }) {
+    console.log(name, email, password);
+    console.log(JSON.stringify({ name, email, password }));
+    register(name, email, password)
+      .then((res) => {
+        console.log(res);
+        console.log('всё ок');
+        // setModalResponse({ open: true, status: true });
+        // navigate("/sign-in");
+      }).catch((err) => console.log(`Ошибка регистрации ${err}`))
+    // .catch(() => setModalResponse({ open: true, status: false }))
+  }
+
+  function handleLogin({ email, password }) {
+    authorize(email, password)
+      .then(res => {
+        localStorage.setItem("jwt", res.token)
+        mainApi.setHeaderToken(res.token)
+      }).then(() => {
+        console.log('логин ок');
+        navigate('/movies');
+        // tokenCheck()
+        // setLoggedIn(true)
+      }).catch(err => console.log(`Не удаётся войти. ${err}`))
+  }
+
+  function handleUpdateUser({ name, email }) {
+    mainApi.editProfile(name, email)
+      .then((res) => {
+        setCurrentUser(res);
+      }).catch(err => console.log(`Данные профиля не были обновлены. ${err}`))
+    // тут можно вывести модалку с ошибкой и успешным обновлением
+  }
+
+
+
+  function signOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('allMovies');
+    localStorage.removeItem('checkbox');
+    localStorage.removeItem('showAllMovies');
+    // api.setHeaderToken(null)
+    // navigate("/signin")
+  }
+
+  function handleAddFavorites(movie) {
+    mainApi.saveMovie(movie)
+      .then(res => {
+        setSavedMovies(savedMovies.concat(res));
+      }).catch((err) => console.log(`Фильм не сохранился. ${err}`))
+  }
+
+  function handleRemoveFavorites(movie) {
+    mainApi.deleteMovie(movie._id)
+      .then(setSavedMovies((state) => state.filter((stateItem) => stateItem._id !== movie._id)))
+      .catch((err) => console.log(`Не удалось удалить фильм. ${err}`))
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
@@ -137,7 +244,8 @@ function App() {
                     setMoviesList={setMoviesList}
                     handleShowAllMovies={handleShowAllMovies}
                     showAllMovies={showAllMovies}
-
+                    handleAddFavorites={handleAddFavorites}
+                    handleRemoveFavorites={handleRemoveFavorites}
                   />}
               />
               <Route path='/saved-movies'
@@ -145,6 +253,16 @@ function App() {
                   <ProtectedRoute
                     element={SavedMovies}
                     loggedIn={loggedIn}
+                    movies={savedMovies}
+                    shortMoviesOnly={shortMoviesOnly}
+                    setShortMoviesOnly={setShortMoviesOnly}
+                    selectShortMovies={toggleShortMovies}
+                    searchMovies={searchMovies}
+                    searchInputValue={searchInputValue}
+                    setSearchInputValue={setSearchInputValue}
+
+                    handleAddFavorites={handleAddFavorites}
+                    handleRemoveFavorites={handleRemoveFavorites}
                   />}
               />
               <Route path='/profile'
@@ -152,11 +270,24 @@ function App() {
                   <ProtectedRoute
                     element={Profile}
                     loggedIn={loggedIn}
+                    signOut={signOut}
+                    onUpdateUser={handleUpdateUser}
                   />}
               />
-              <Route path='/signin' element={<Login />} />
-              <Route path='/signup' element={<Register />} />
-              <Route path="*" element={<PageNotFound />} />
+              <Route path='/signin'
+                element={<Login
+                  onFormSubmit={handleLogin}
+                />}
+              />
+              <Route path='/signup'
+                element={<Register
+                  onFormSubmit={handleRegister}
+                />}
+              />
+              <Route
+                path="*"
+                element={loggedIn ? (<Navigate to='/' />) : (<PageNotFound />)}
+              />
             </Routes>
           </div>}
       </div>

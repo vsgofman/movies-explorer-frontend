@@ -7,6 +7,7 @@ function SearchForm({ shortMoviesOnly, setShortMoviesOnly, selectShortMovies, se
 
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
+    // обнуление ошибки инпута
     if (evt.target.value === '' && getLocalStorageItem('foundMovies')) {
       setMoviesList(getLocalStorageItem('allMovies'))
       setLocalStorageItem(false, 'checkbox')

@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import CardListInfo from '../CardListInfo/CardListInfo';
-import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
+import { getLocalStorageItem } from '../../utils/constants';
+import { useLocation } from 'react-router-dom';
 
 
-function MoviesCardList({ movies, showAllMovies, handleShowAllMovies }) {
+function MoviesCardList({ movies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
+  let location = useLocation();
+  let savedMoviesPage = location.pathname === '/saved-movies';
+
   const [amountCards, setAmountCards] = useState(12);
-
   useEffect(() => {
     let timer;
     const changeAmountTimer = () => {
@@ -40,7 +43,16 @@ function MoviesCardList({ movies, showAllMovies, handleShowAllMovies }) {
       <div className='movies-list__block'>
         {
           movies.slice(0, amountCards).map((movie, i) => (
-            <MoviesCard movie={movie} key={movie._id} />
+            <MoviesCard
+              movie={movie}
+              onSavedClick={onSavedClick}
+              key={movie._id}
+              isSaved={movies.find((item) => item.movieId === movie.id)}
+              savedMovies={movies}
+              savedMoviesPage={savedMoviesPage}
+              handleAddFavorites={handleAddFavorites}
+              handleRemoveFavorites={handleRemoveFavorites}
+            />
           ))
         }
       </div>
