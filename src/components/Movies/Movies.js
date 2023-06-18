@@ -5,7 +5,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies(props) {
   const {
+    loggedIn,
+    location,
     movies,
+    savedMovies,
+    
     searchMovies,
     setMoviesList,
     shortMoviesOnly,
@@ -13,7 +17,6 @@ function Movies(props) {
     showAllMovies,
     handleShowAllMovies,
     setShortMoviesOnly,
-    loggedIn,
     searchInputValue,
     setSearchInputValue,
     handleAddFavorites,
@@ -21,7 +24,7 @@ function Movies(props) {
   } = props;
 
   return (
-    <BlockPage loggedIn={loggedIn}>
+    <BlockPage loggedIn={loggedIn} location={location}>
       <section className='movies'>
         <SearchForm
           shortMoviesOnly={shortMoviesOnly}
@@ -35,6 +38,7 @@ function Movies(props) {
         />
         <MoviesCardList
           movies={movies}
+          savedMovies={savedMovies}
           showAllMovies={showAllMovies}
           handleShowAllMovies={handleShowAllMovies}
           handleAddFavorites={handleAddFavorites}

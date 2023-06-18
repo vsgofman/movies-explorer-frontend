@@ -3,7 +3,7 @@ import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
 
-function Profile({ loggedIn, signOut, onUpdateUser }) {
+function Profile({ loggedIn, location, signOut, onUpdateUser }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const currentUser = useContext(CurrentUserContext);
@@ -29,7 +29,7 @@ function Profile({ loggedIn, signOut, onUpdateUser }) {
   }
 
   return (
-    <BlockPage loggedIn={loggedIn}>
+    <BlockPage loggedIn={loggedIn} location={location}>
       <section className='profile'>
         <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
         <form

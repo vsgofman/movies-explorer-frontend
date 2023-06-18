@@ -6,7 +6,7 @@ import { getLocalStorageItem } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 
 
-function MoviesCardList({ movies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
+function MoviesCardList({ movies, savedMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
   let location = useLocation();
   let savedMoviesPage = location.pathname === '/saved-movies';
 
@@ -46,9 +46,9 @@ function MoviesCardList({ movies, onSavedClick, handleShowAllMovies, handleAddFa
             <MoviesCard
               movie={movie}
               onSavedClick={onSavedClick}
-              key={movie._id}
-              isSaved={movies.find((item) => item.movieId === movie.id)}
-              savedMovies={movies}
+              key={movie.id}
+              isSaved={savedMovies.find((item) => item.movieId === movie.id)}
+              savedMovies={savedMovies}
               savedMoviesPage={savedMoviesPage}
               handleAddFavorites={handleAddFavorites}
               handleRemoveFavorites={handleRemoveFavorites}

@@ -43,8 +43,6 @@ class MainApi extends React.Component {
   }
 
   saveMovie(movie) {
-    console.log(this._headers);
-    console.log(this._url);
     const {
       country,
       director,

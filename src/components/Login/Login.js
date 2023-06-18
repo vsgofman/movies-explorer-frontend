@@ -9,8 +9,6 @@ function Login({ onFormSubmit }) {
     evt.preventDefault();
     if (!inputValues.email || !inputValues.password) return
     onFormSubmit(inputValues);
-    console.log('login');
-    console.log(inputValues);
   }
 
   return (

@@ -5,9 +5,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies(props) {
   const {
-    movies,
-    onSelectShortFilms,
     loggedIn,
+    location,
+    movies,
+    savedMovies,
+
+    
+    onSelectShortFilms,
     searchInputValue,
     setSearchInputValue,
     searchMovies,
@@ -17,7 +21,7 @@ function SavedMovies(props) {
   } = props;
 
   return (
-    <BlockPage loggedIn={loggedIn}>
+    <BlockPage loggedIn={loggedIn} location={location}>
       <section className='saved-movies'>
         <SearchForm
           selectShortMovies={selectShortMovies}
@@ -28,6 +32,7 @@ function SavedMovies(props) {
         />
         <MoviesCardList
           movies={movies}
+          savedMovies={savedMovies}
           handleAddFavorites={handleAddFavorites}
           handleRemoveFavorites={handleRemoveFavorites}
         />

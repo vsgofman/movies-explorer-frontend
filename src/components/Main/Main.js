@@ -6,9 +6,9 @@ import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 import './Main.css';
 
-function Main({ loggedIn }) {
+function Main({ loggedIn, location }) {
   return (
-    <BlockPage loggedIn={loggedIn}>
+    <BlockPage loggedIn={loggedIn} location={location}>
       <main className='content'>
         <Promo />
         <AboutProject />
