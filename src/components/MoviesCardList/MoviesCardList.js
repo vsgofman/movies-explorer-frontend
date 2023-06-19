@@ -6,7 +6,7 @@ import { getLocalStorageItem } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 
 
-function MoviesCardList({ movies, savedMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
+function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
   let location = useLocation();
   let savedMoviesPage = location.pathname === '/saved-movies';
 
@@ -56,7 +56,7 @@ function MoviesCardList({ movies, savedMovies, onSavedClick, handleShowAllMovies
           ))
         }
       </div>
-      {!getLocalStorageItem('showAllMovies') && movies.length === 0 &&
+      {!showAllMovies && movies.length === 0 &&
         <CardListInfo
           text={'Введите запрос для поиска'}
         />
@@ -70,7 +70,7 @@ function MoviesCardList({ movies, savedMovies, onSavedClick, handleShowAllMovies
           text={'Ничего не найдено'}
         />}
 
-      {!getLocalStorageItem('showAllMovies') &&
+      {!showAllMovies &&
         <button onClick={handleShowAllMovies}>Показать все фильмы</button>
       }
       {amountCards < movies.length && (<button

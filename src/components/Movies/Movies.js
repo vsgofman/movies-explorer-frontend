@@ -9,12 +9,13 @@ function Movies(props) {
     location,
     movies,
     savedMovies,
-    
+    showAllMovies,
+    setFoMovies,
+
     searchMovies,
     setMoviesList,
     shortMoviesOnly,
     selectShortMovies,
-    showAllMovies,
     handleShowAllMovies,
     setShortMoviesOnly,
     searchInputValue,
@@ -35,11 +36,14 @@ function Movies(props) {
           searchMovies={searchMovies}
           setMoviesList={setMoviesList}
           showAllMovies={showAllMovies}
+          setFoMovies={setFoMovies}
         />
         <MoviesCardList
           movies={movies}
           savedMovies={savedMovies}
           showAllMovies={showAllMovies}
+
+          
           handleShowAllMovies={handleShowAllMovies}
           handleAddFavorites={handleAddFavorites}
           handleRemoveFavorites={handleRemoveFavorites}

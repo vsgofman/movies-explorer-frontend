@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import iconInput from '../../images/icon__input-search.png';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
 
-function SearchForm({ shortMoviesOnly, setShortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, searchMovies, setMoviesList }) {
+function SearchForm({ setFoMovies, shortMoviesOnly, setShortMoviesOnly, selectShortMovies, searchInputValue, setSearchInputValue, searchMovies, setMoviesList }) {
 
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
@@ -12,6 +12,7 @@ function SearchForm({ shortMoviesOnly, setShortMoviesOnly, selectShortMovies, se
       setMoviesList(getLocalStorageItem('allMovies'))
       setLocalStorageItem(false, 'checkbox')
       setShortMoviesOnly(false)
+      setFoMovies([]);
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
       localStorage.removeItem('shortMovies')
