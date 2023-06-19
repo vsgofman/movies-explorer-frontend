@@ -30,9 +30,12 @@ function App() {
 
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
-  const [showAllMovies, setShowAllMovies] = useState(false);
+  const [showAllMovies, setShowAllMovies] = useState(
+    localStorage.getItem('showAllMovies') || false
+  );
   const [moviesList, setMoviesList] = useState([]);
-  const [allMovies, setAllMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState(
+    getLocalStorageItem('allMovies') || []);
   const [searchInputValue, setSearchInputValue] = useState('');
 
   const navigate = useNavigate();
@@ -49,10 +52,6 @@ function App() {
         setLocalStorageItem(true, 'loggedIn')
         navigate(location.pathname)
         console.log('tokenCheck');
-      }).then(() => {
-        if (allMovies.length === 0) {
-          setAllMovies(getLocalStorageItem('allMovies'))
-        }
       }).catch((err) => console.log(`Некорректный токен. ${err}`))
   }, [navigate])
 
@@ -61,29 +60,12 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if ((allMovies === null || allMovies.length === 0) && getLocalStorageItem('allMovies')) {
-      console.log('аминь');
-    }
-  }, [])
-
-  // useEffect(() => {
-  //   if (!getLocalStorageItem('allMovies') && loggedIn) {
-  //     setIsLoading(true);
-  //     getAllMovies()
-  //       .then((allMovies) => {
-  //         setAllMovies(allMovies)
-  //         setLocalStorageItem(allMovies, 'allMovies');
-  //       }).catch((err) => console.log(`Данные не загрузились. ${err}`))
-  //       .finally(() => setIsLoading(false))
-  //   }
-  // }, [loggedIn])
-
-  useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
       mainApi.getSavedMovies()
         .then(savedMovies => {
           setSavedMovies(savedMovies)
+          console.log('11');
           setLocalStorageItem(savedMovies, 'savedMovies')
         })
         .catch((err) => console.log(`Данные не загрузились. ${err}`))
@@ -91,65 +73,31 @@ function App() {
     }
   }, [loggedIn])
 
-  // useEffect(() => {
-  //   let checkbox = getLocalStorageItem('checkbox');
-  //   let foundMovies = getLocalStorageItem('foundMovies');
-  //   let shortMovies = getLocalStorageItem('shortMovies');
-  //   if (foundMovies) {
-  //     setShortMoviesOnly(checkbox)
-  //     setSearchInputValue(getLocalStorageItem('inputValue'))
-  //     if (checkbox === true) {
-  //       setMoviesList(shortMovies);
-  //       setShortMoviesOnly(checkbox);
-  //       return;
-  //     } else if (checkbox === false) {
-  //       setMoviesList(foundMovies);
-  //       return;
-  //     } else if (shortMovies.length !== 0) {
-  //       // выводим ничего не найдено
-  //       console.log('ничего не найдено');
-  //     }
-  //   }
-  //   if (getLocalStorageItem('allMovies') !== null) {
-  //     if (checkbox === true) {
-  //       setShortMoviesOnly(checkbox);
-  //       setMoviesList(shortMovies);
-  //       return;
-  //     } else if (checkbox === false) {
-  //       setMoviesList(getLocalStorageItem('allMovies'));
-  //       return;
-  //     }
-  //   }
-  //   setMoviesList([]);
-  // }, [])
-
-
-
-  // function handleCheckbox(checkbox) {
-  //   let shortMovies
-  //   if (getLocalStorageItem('foundMovies')) {
-  //     if (checkbox === true) {
-  //       shortMovies = (getLocalStorageItem('foundMovies')).filter((movie) => movie.duration <= 40);
-  //     } else {
-  //       setMoviesList(getLocalStorageItem('foundMovies'));
-  //       return;
-  //     }
-  //   } else if (!getLocalStorageItem('foundMovies') && getLocalStorageItem('showAllMovies') === true) {
-  //     if (checkbox === true) {
-  //       shortMovies = (getLocalStorageItem('allMovies')).filter((movie) => movie.duration <= 40);
-  //     } else {
-  //       setMoviesList(getLocalStorageItem('allMovies'))
-  //       localStorage.removeItem('shortMovies')
-  //       return;
-  //     }
-  //   } else if (!getLocalStorageItem('foundMovies') && getLocalStorageItem('showAllMovies') !== true) {
-  //     setMoviesList([])
-  //     return;
-  //   }
-  //   setMoviesList(shortMovies)
-  //   setLocalStorageItem(shortMovies, 'shortMovies')
-  //   return;
-  // }
+  useEffect(() => {
+    let checkbox = getLocalStorageItem('checkbox');
+    let foundMovies = getLocalStorageItem('foundMovies');
+    let shortMovies = getLocalStorageItem('shortMovies');
+    let inputValue = getLocalStorageItem('inputValue');
+    setFoMovies(foundMovies)
+    if (shortMovies !== null) {
+      console.log('shortMovies !== null');
+      setMoviesList(shortMovies);
+      setIsShortMovies(checkbox);
+      setSearchInputValue(inputValue);
+      return;
+    } else {
+      console.log('shortMovies === null');
+      if (foundMovies !== null) {
+        setMoviesList(foundMovies);
+        setIsShortMovies(checkbox);
+        setSearchInputValue(inputValue);
+        return;
+      } else {
+        setMoviesList(allMovies);
+        return;
+      }
+    }
+  }, [])
 
   function sortMoviesByLength(movies) {
     const sortMovies = movies.filter((movie) => {
@@ -176,35 +124,27 @@ function App() {
           setMoviesList(foundMovies)
           setLocalStorageItem(foundMovies, 'foundMovies')
           setShowAllMovies(true)
-
+          setLocalStorageItem(true, 'showAllMovies')
+          setLocalStorageItem(searchInputValue, 'inputValue')
         }).catch((err) => console.log(`Данные не загрузились. ${err}`))
         .finally(() => setIsLoading(false))
     }
     if (isShortMovies) {
-      console.log(allMovies)
       let shortMovies = sortMoviesByLength(allMovies);
       let foundMovies = findMovies(shortMovies, searchInputValue)
       setMoviesList(foundMovies)
       setFoMovies(foundMovies)
-      // setLocalStorageItem(foundMovies, 'foundMovies');
       setLocalStorageItem(foundMovies, 'foundMovies')
+      setLocalStorageItem(foundMovies, 'shortMovies')
+      setFoMovies(foundMovies)
+      setLocalStorageItem(searchInputValue, 'inputValue')
     } else {
       let foundMovies = findMovies(allMovies, searchInputValue)
       setMoviesList(foundMovies)
       setFoMovies(foundMovies)
-      // setLocalStorageItem(foundMovies, 'foundMovies');
       setLocalStorageItem(foundMovies, 'foundMovies')
+      setLocalStorageItem(searchInputValue, 'inputValue')
     }
-    // let foundMovies = getLocalStorageItem('allMovies').filter((movie) => (
-    //   movie.nameRU.toLowerCase().includes(searchInputValue.toLowerCase())
-    // ))
-    // setLocalStorageItem(foundMovies, 'foundMovies');
-    // setLocalStorageItem(searchInputValue, 'inputValue')
-    // setLocalStorageItem(true, 'showAllMovies');
-    // setShowAllMovies(true)
-    // setShortMoviesOnly(false)
-    // setLocalStorageItem(false, 'checkbox');
-    // setMoviesList(foundMovies)
   }
 
   function searchSavedMovies() {
@@ -213,55 +153,34 @@ function App() {
     )
   }
 
-  console.log('бзынь');
-
 
   function toggleShortMovies() {
     if (savedMoviesPage) {
-      console.log('toggle в saved работает');
       setIsShortSavedMovies(!isShortSavedMovies);
       handleSavedMoviesCheckbox(!isShortSavedMovies);
     } else {
-      console.log('toggle работает');
       setIsShortMovies(!isShortMovies);
       handleMoviesCheckbox(!isShortMovies);
     }
   }
 
-  // useEffect(() => {
-  //   setLocalStorageItem(shortMoviesOnly, 'checkbox')
-
-  //   if (shortMoviesOnly) {
-  //     setSavedMovies(sortMoviesByLength(savedMovies));
-  //     let shortMovies = sortMoviesByLength(moviesList)
-  //     setMoviesList(shortMovies);
-  //     setLocalStorageItem(shortMovies, 'shortMovies')
-  //   } else {
-  //     setSavedMovies(getLocalStorageItem('savedMovies'))
-  //     if (getLocalStorageItem('foundMovies')) {
-  //       return setMoviesList(getLocalStorageItem('foundMovies'));
-  //     }
-  //     setMoviesList(allMovies);
-  //   }
-  // }, [shortMoviesOnly]);
-
   function handleMoviesCheckbox(checkbox) {
     setLocalStorageItem(checkbox, 'checkbox')
     console.log(checkbox);
     console.log(showAllMovies);
-    console.log(foMovies);
     if (showAllMovies) {
       if (checkbox) {
-        setMoviesList(
-          sortMoviesByLength(moviesList)
-        )
+        let shortMovies = sortMoviesByLength(moviesList);
+        setMoviesList(shortMovies)
+        setLocalStorageItem(shortMovies, 'shortMovies')
       } else if (!checkbox && foMovies.length !== 0) {
-        console.log(foMovies);
         console.log('!check i fo');
-        setMoviesList(foMovies)
+        setMoviesList(foMovies);
+        localStorage.removeItem('shortMovies')
       } else if (!checkbox && foMovies.length === 0) {
         console.log('!check i !fo');
         setMoviesList(allMovies)
+        localStorage.removeItem('shortMovies')
       }
     }
     return;
@@ -288,6 +207,7 @@ function App() {
     getAllMovies()
       .then((allMovies) => {
         setShowAllMovies(true);
+        setLocalStorageItem(true, 'showAllMovies')
         setLocalStorageItem(allMovies, 'allMovies');
         setAllMovies(allMovies)
         setMoviesList(getLocalStorageItem('allMovies'))
@@ -327,17 +247,16 @@ function App() {
     // тут можно вывести модалку с ошибкой и успешным обновлением
   }
 
-
-
   function signOut() {
     navigate("/signin")
     setLoggedIn(false);
-    setShowAllMovies(false);
     setIsShortMovies(false);
+    setSearchInputValue('');
     mainApi.setHeaderToken(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('allMovies');
+    localStorage.removeItem('showAllMovies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('checkbox');
   }

@@ -37,7 +37,6 @@ function SearchForm(props) {
   function handleFilterMovies(evt) {
     evt.preventDefault();
     if (savedMoviesPage) {
-      console.log('поиск в форме');
       searchSavedMovies();
     } else {
       searchMovies();
