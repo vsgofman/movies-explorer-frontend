@@ -26,7 +26,10 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [foMovies, setFoMovies] = useState([]);
-  const [shortMoviesOnly, setShortMoviesOnly] = useState(false);
+
+
+  const [isShortMovies, setIsShortMovies] = useState(false);
+  const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
   const [showAllMovies, setShowAllMovies] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
@@ -177,7 +180,7 @@ function App() {
         }).catch((err) => console.log(`Данные не загрузились. ${err}`))
         .finally(() => setIsLoading(false))
     }
-    if (shortMoviesOnly) {
+    if (isShortMovies) {
       console.log(allMovies)
       let shortMovies = sortMoviesByLength(allMovies);
       let foundMovies = findMovies(shortMovies, searchInputValue)
@@ -204,13 +207,25 @@ function App() {
     // setMoviesList(foundMovies)
   }
 
+  function searchSavedMovies() {
+    setSavedMovies(
+      findMovies(savedMovies, searchInputValue)
+    )
+  }
+
   console.log('бзынь');
 
 
   function toggleShortMovies() {
-    console.log('toggle работает');
-    setShortMoviesOnly(!shortMoviesOnly);
-    handleCheckbox(!shortMoviesOnly)
+    if (savedMoviesPage) {
+      console.log('toggle в saved работает');
+      setIsShortSavedMovies(!isShortSavedMovies);
+      handleSavedMoviesCheckbox(!isShortSavedMovies);
+    } else {
+      console.log('toggle работает');
+      setIsShortMovies(!isShortMovies);
+      handleMoviesCheckbox(!isShortMovies);
+    }
   }
 
   // useEffect(() => {
@@ -230,7 +245,7 @@ function App() {
   //   }
   // }, [shortMoviesOnly]);
 
-  function handleCheckbox(checkbox) {
+  function handleMoviesCheckbox(checkbox) {
     setLocalStorageItem(checkbox, 'checkbox')
     console.log(checkbox);
     console.log(showAllMovies);
@@ -250,6 +265,21 @@ function App() {
       }
     }
     return;
+  }
+
+  function handleSavedMoviesCheckbox(checkbox) {
+    console.log(checkbox);
+    if (checkbox) {
+      setSavedMovies(
+        sortMoviesByLength(savedMovies)
+      )
+    } else if (searchInputValue !== '' && !checkbox) {
+      setSavedMovies(
+        findMovies(getLocalStorageItem('savedMovies'), searchInputValue)
+      )
+    } else if (!checkbox) {
+      setSavedMovies(getLocalStorageItem('savedMovies'))
+    }
   }
 
 
@@ -303,7 +333,7 @@ function App() {
     navigate("/signin")
     setLoggedIn(false);
     setShowAllMovies(false);
-    setShortMoviesOnly(false);
+    setIsShortMovies(false);
     mainApi.setHeaderToken(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem('loggedIn');
@@ -346,17 +376,13 @@ function App() {
                     location={location}
                     movies={moviesList}
                     savedMovies={savedMovies}
-                    shortMoviesOnly={shortMoviesOnly}
                     selectShortMovies={toggleShortMovies}
                     showAllMovies={showAllMovies}
                     setFoMovies={setFoMovies}
-
-
-
-
-
-                    setShortMoviesOnly={setShortMoviesOnly}
+                    isShortMovies={isShortMovies}
+                    setIsShortMovies={setIsShortMovies}
                     searchMovies={searchMovies}
+
 
                     searchInputValue={searchInputValue}
                     setSearchInputValue={setSearchInputValue}
@@ -375,14 +401,15 @@ function App() {
                     location={location}
                     movies={savedMovies}
                     savedMovies={savedMovies}
-                    shortMoviesOnly={shortMoviesOnly}
+                    isShortSavedMovies={isShortSavedMovies}
                     selectShortMovies={toggleShortMovies}
+                    savedMoviesPage={savedMoviesPage}
+                    searchSavedMovies={searchSavedMovies}
+                    setSavedMovies={setSavedMovies}
 
 
 
 
-
-                    setShortMoviesOnly={setShortMoviesOnly}
                     searchMovies={searchMovies}
                     searchInputValue={searchInputValue}
                     setSearchInputValue={setSearchInputValue}

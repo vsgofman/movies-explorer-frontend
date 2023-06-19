@@ -9,9 +9,11 @@ function SavedMovies(props) {
     location,
     movies,
     savedMovies,
-    shortMoviesOnly,
+    isShortSavedMovies,
     selectShortMovies,
-
+    savedMoviesPage,
+    searchSavedMovies,
+    setSavedMovies,
 
 
     onSelectShortFilms,
@@ -26,16 +28,20 @@ function SavedMovies(props) {
     <BlockPage loggedIn={loggedIn} location={location}>
       <section className='saved-movies'>
         <SearchForm
-          shortMoviesOnly={shortMoviesOnly}
+          isShortSavedMovies={isShortSavedMovies}
           selectShortMovies={selectShortMovies}
           onSelectShortFilms={onSelectShortFilms}
           searchInputValue={searchInputValue}
           setSearchInputValue={setSearchInputValue}
           searchMovies={searchMovies}
+          savedMoviesPage={savedMoviesPage}
+          searchSavedMovies={searchSavedMovies}
+          setSavedMovies={setSavedMovies}
         />
         <MoviesCardList
           movies={movies}
           savedMovies={savedMovies}
+          savedMoviesPage={savedMoviesPage}
 
           handleAddFavorites={handleAddFavorites}
           handleRemoveFavorites={handleRemoveFavorites}

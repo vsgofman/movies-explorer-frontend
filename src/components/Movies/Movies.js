@@ -11,13 +11,14 @@ function Movies(props) {
     savedMovies,
     showAllMovies,
     setFoMovies,
-
+    isShortMovies,
+    setIsShortMovies,
     searchMovies,
+
+    
     setMoviesList,
-    shortMoviesOnly,
     selectShortMovies,
     handleShowAllMovies,
-    setShortMoviesOnly,
     searchInputValue,
     setSearchInputValue,
     handleAddFavorites,
@@ -28,12 +29,13 @@ function Movies(props) {
     <BlockPage loggedIn={loggedIn} location={location}>
       <section className='movies'>
         <SearchForm
-          shortMoviesOnly={shortMoviesOnly}
-          setShortMoviesOnly={setShortMoviesOnly}
+          isShortMovies={isShortMovies}
+          setIsShortMovies={setIsShortMovies}
+          searchMovies={searchMovies}
+
           selectShortMovies={selectShortMovies}
           searchInputValue={searchInputValue}
           setSearchInputValue={setSearchInputValue}
-          searchMovies={searchMovies}
           setMoviesList={setMoviesList}
           showAllMovies={showAllMovies}
           setFoMovies={setFoMovies}

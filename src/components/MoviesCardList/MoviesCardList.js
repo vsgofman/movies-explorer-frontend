@@ -3,12 +3,9 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import CardListInfo from '../CardListInfo/CardListInfo';
 import { getLocalStorageItem } from '../../utils/constants';
-import { useLocation } from 'react-router-dom';
 
 
-function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites }) {
-  let location = useLocation();
-  let savedMoviesPage = location.pathname === '/saved-movies';
+function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites, savedMoviesPage }) {
 
   const [amountCards, setAmountCards] = useState(12);
   useEffect(() => {
