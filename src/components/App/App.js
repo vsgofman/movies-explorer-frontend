@@ -153,7 +153,6 @@ function App() {
     )
   }
 
-
   function toggleShortMovies() {
     if (savedMoviesPage) {
       setIsShortSavedMovies(!isShortSavedMovies);
@@ -252,6 +251,7 @@ function App() {
     setLoggedIn(false);
     setIsShortMovies(false);
     setSearchInputValue('');
+    setAllMovies([]);
     mainApi.setHeaderToken(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem('loggedIn');

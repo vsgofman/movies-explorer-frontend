@@ -1,4 +1,3 @@
-import './Login.css';
 import StartPage from '../StartPage/StartPage';
 import { FormHandler } from '../../utils/FormHandler';
 

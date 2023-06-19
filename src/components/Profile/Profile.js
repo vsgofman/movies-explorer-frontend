@@ -2,30 +2,36 @@ import { BlockPage } from '../BlockPage/BlockPage';
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
+import { FormHandler } from '../../utils/FormHandler';
 
 function Profile({ loggedIn, location, signOut, onUpdateUser }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [inputsActive, setInputsActive] = useState(false);
+  const { handleChange, inputValues, inputErrors, setInputValues } = FormHandler();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
+    setInputValues({
+      ...inputValues,
+      name: currentUser.name,
+      email: currentUser.email,
+    });
   }, [currentUser]);
-
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  }
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateUser({
-      name,
-      email,
+      name: inputValues.name,
+      email: inputValues.email,
     });
+    setInputsActive(false);
+  }
+
+  function handleStartEdit() {
+    setInputsActive(true);
+  }
+
+  function handleCancelEdit() {
+    setInputsActive(false);
   }
 
   return (
@@ -39,39 +45,62 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
           <div className='profile__input-block profile__input-block_name'>
             <p className='profile__text'>Имя</p>
             <input
+              readOnly={!inputsActive}
               className='profile__input profile__input_name'
               id='profile-name'
               name='name'
               placeholder='Виталий'
-              onChange={handleNameChange}
-              value={name || ''}
+              onChange={handleChange}
+              value={inputValues.name || ''}
+              minlength="2"
+              required
             />
+            <span className=''>
+              {inputErrors.name}
+            </span>
           </div>
           <div className='profile__input-block'>
             <p className='profile__text'>E-mail</p>
             <input
+              readOnly={!inputsActive}
               className='profile__input profile__input_email'
               id='profile-email'
               type='email' name='email'
               placeholder='pochta@yandex.ru'
-              onChange={handleEmailChange}
-              value={email || ''}
+              onChange={handleChange}
+              value={inputValues.email || ''}
+              required
             />
+            <span className=''>
+              {inputErrors.email}
+            </span>
           </div>
         </form>
         <div className='profile__button-block'>
           <button
-            className='profile__button'
-            form='profile-form'
-            type='submit'
-            onClick={handleSubmit}
+            className={`profile__button ${!inputsActive && 'profile__button_active'}`}
+            type='button'
+            onClick={handleStartEdit}
           >Редактировать
           </button>
           <button
-            className='profile__button'
+            className={`profile__button ${!inputsActive && 'profile__button_active'}`}
             type='button'
             onClick={signOut}
           >Выйти из аккаунта
+          </button>
+          <button
+            className={`profile__button ${inputsActive && 'profile__button_active'}`}
+            form='profile-form'
+            type='submit'
+            onClick={handleSubmit}
+          >Сохранить
+          </button>
+          <button
+            className={`profile__button ${inputsActive && 'profile__button_active'}`}
+            type='button'
+            onClick={handleCancelEdit}
+          >Отмена
           </button>
         </div>
       </section>

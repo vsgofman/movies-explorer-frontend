@@ -71,6 +71,7 @@
 }
 
 .profile__button {
+  display: none;
   margin-bottom: 16px;
   font-size: 13px;
   font-weight: 400;
@@ -80,9 +81,21 @@
   cursor: pointer;
 }
 
-.profile__button:last-child {
+.profile__button_active:nth-child(2n) {
   margin-bottom: 0;
   color: #FF4062;
+}
+
+.profile__button_active {
+  display: block;
+}
+
+.profile__edit-button {
+  display: none;
+}
+
+.profile__edit-button_active {
+  display: block;
 }
 
 @media screen and (max-width: 768px) {
