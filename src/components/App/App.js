@@ -2,7 +2,6 @@ import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useCallback } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -10,7 +9,6 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import Preloader from '../Preloader/Preloader';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
 import { modalMessages } from '../../utils/constants';
@@ -56,6 +54,7 @@ function App() {
         setCurrentUser(res)
         setLoggedIn(true)
         setLocalStorageItem(true, 'loggedIn')
+        setAllMovies(getLocalStorageItem('allMovies'))
         navigate(location.pathname)
         console.log('tokenCheck');
       }).catch((err) => console.log(`Некорректный токен. ${err}`))
@@ -214,7 +213,7 @@ function App() {
         setLocalStorageItem(true, 'showAllMovies')
         setLocalStorageItem(allMovies, 'allMovies');
         setAllMovies(allMovies)
-        setMoviesList(getLocalStorageItem('allMovies'))
+        setMoviesList(allMovies)
       }).catch((err) => console.log(`Данные не загрузились. ${err}`))
       .finally(() => setIsLoading(false))
   }
@@ -261,11 +260,14 @@ function App() {
     setLoggedIn(false);
     setIsShortMovies(false);
     setSearchInputValue('');
+    setShowAllMovies(false);
     setAllMovies([]);
+    setMoviesList([]);
     mainApi.setHeaderToken(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('allMovies');
+    localStorage.removeItem('foundMovies');
     localStorage.removeItem('showAllMovies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('checkbox');
@@ -287,100 +289,100 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
-        {isLoading ?
-          <Preloader /> :
-          <div className='page'>
-            <Routes>
-              <Route path='/' element={
-                <Main
+        <div className='page'>
+          <Routes>
+            <Route path='/' element={
+              <Main
+                loggedIn={loggedIn}
+                location={location}
+              />
+            } />
+            <Route path='/movies'
+              element={
+                <ProtectedRoute
+                  element={Movies}
                   loggedIn={loggedIn}
                   location={location}
-                />
-              } />
-              <Route path='/movies'
-                element={
-                  <ProtectedRoute
-                    element={Movies}
-                    loggedIn={loggedIn}
-                    location={location}
-                    movies={moviesList}
-                    savedMovies={savedMovies}
-                    selectShortMovies={toggleShortMovies}
-                    showAllMovies={showAllMovies}
-                    setFoMovies={setFoMovies}
-                    isShortMovies={isShortMovies}
-                    setIsShortMovies={setIsShortMovies}
-                    searchMovies={searchMovies}
-                    errorSearchMovie={errorSearchMovie}
-                    setErrorSearchMovie={setErrorSearchMovie}
-                    setIsShortSavedMovies={setIsShortSavedMovies}
+                  movies={moviesList}
+                  savedMovies={savedMovies}
+                  selectShortMovies={toggleShortMovies}
+                  showAllMovies={showAllMovies}
+                  setFoMovies={setFoMovies}
+                  isShortMovies={isShortMovies}
+                  setIsShortMovies={setIsShortMovies}
+                  searchMovies={searchMovies}
+                  errorSearchMovie={errorSearchMovie}
+                  setErrorSearchMovie={setErrorSearchMovie}
+                  setIsShortSavedMovies={setIsShortSavedMovies}
+                  isLoading={isLoading}
 
 
-                    searchInputValue={searchInputValue}
-                    setSearchInputValue={setSearchInputValue}
-                    setMoviesList={setMoviesList}
-                    handleShowAllMovies={handleShowAllMovies}
-                    handleAddFavorites={handleAddFavorites}
-                    handleRemoveFavorites={handleRemoveFavorites}
-                  />}
-              />
-              <Route path='/saved-movies'
-                element={
-                  <ProtectedRoute
-                    element={SavedMovies}
-                    loggedIn={loggedIn}
-                    location={location}
-                    movies={savedMovies}
-                    savedMovies={savedMovies}
-                    isShortSavedMovies={isShortSavedMovies}
-                    setIsShortSavedMovies={setIsShortSavedMovies}
-                    selectShortMovies={toggleShortMovies}
-                    savedMoviesPage={savedMoviesPage}
-                    searchSavedMovies={searchSavedMovies}
-                    setSavedMovies={setSavedMovies}
-                    errorSearchMovie={errorSearchMovie}
-                    setErrorSearchMovie={setErrorSearchMovie}
-
-
-
-
-                    searchMovies={searchMovies}
-                    searchInputValue={searchInputValue}
-                    setSearchInputValue={setSearchInputValue}
-                    handleAddFavorites={handleAddFavorites}
-                    handleRemoveFavorites={handleRemoveFavorites}
-                  />}
-              />
-              <Route path='/profile'
-                element={
-                  <ProtectedRoute
-                    element={Profile}
-                    loggedIn={loggedIn}
-                    location={location}
-                    signOut={signOut}
-                    onUpdateUser={handleUpdateUser}
-                  />}
-              />
-              <Route path='/signin'
-                element={<Login
-                  onFormSubmit={handleLogin}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                  setMoviesList={setMoviesList}
+                  handleShowAllMovies={handleShowAllMovies}
+                  handleAddFavorites={handleAddFavorites}
+                  handleRemoveFavorites={handleRemoveFavorites}
                 />}
-              />
-              <Route path='/signup'
-                element={<Register
-                  onFormSubmit={handleRegister}
-                />}
-              />
-              <Route
-                path="*"
-                element={loggedIn ? (<Navigate to='/' />) : (<PageNotFound />)}
-              />
-            </Routes>
-            <InfoToolTip
-              modalResponse={modalResponse}
-              onClose={closeModal}
             />
-          </div>}
+            <Route path='/saved-movies'
+              element={
+                <ProtectedRoute
+                  element={SavedMovies}
+                  loggedIn={loggedIn}
+                  location={location}
+                  movies={savedMovies}
+                  savedMovies={savedMovies}
+                  isShortSavedMovies={isShortSavedMovies}
+                  setIsShortSavedMovies={setIsShortSavedMovies}
+                  selectShortMovies={toggleShortMovies}
+                  savedMoviesPage={savedMoviesPage}
+                  searchSavedMovies={searchSavedMovies}
+                  setSavedMovies={setSavedMovies}
+                  errorSearchMovie={errorSearchMovie}
+                  setErrorSearchMovie={setErrorSearchMovie}
+                  isLoading={isLoading}
+
+
+
+
+                  searchMovies={searchMovies}
+                  searchInputValue={searchInputValue}
+                  setSearchInputValue={setSearchInputValue}
+                  handleAddFavorites={handleAddFavorites}
+                  handleRemoveFavorites={handleRemoveFavorites}
+                />}
+            />
+            <Route path='/profile'
+              element={
+                <ProtectedRoute
+                  element={Profile}
+                  loggedIn={loggedIn}
+                  location={location}
+                  signOut={signOut}
+                  onUpdateUser={handleUpdateUser}
+                />}
+            />
+            <Route path='/signin'
+              element={<Login
+                onFormSubmit={handleLogin}
+              />}
+            />
+            <Route path='/signup'
+              element={<Register
+                onFormSubmit={handleRegister}
+              />}
+            />
+            <Route
+              path="*"
+              element={loggedIn ? (<Navigate to='/' />) : (<PageNotFound />)}
+            />
+          </Routes>
+          <InfoToolTip
+            modalResponse={modalResponse}
+            onClose={closeModal}
+          />
+        </div>
       </div>
     </CurrentUserContext.Provider>
   );

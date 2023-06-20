@@ -2,7 +2,7 @@ import './CardListInfo.css';
 
 function CardListInfo({ text }) {
   return (
-    <p>{text}</p>
+    <span className='list-info'>{text}</span>
   )
 }
 

@@ -53,22 +53,32 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
           ))
         }
       </div>
-      {!showAllMovies && movies.length === 0 &&
+        {savedMoviesPage && movies.length === 0 &&
+        <CardListInfo
+        text={'Ничего не найдено'}
+      />}
+      {((getLocalStorageItem('shortMovies') &&
+        getLocalStorageItem('foundMovies') &&
+        movies.length === 0)
+        ||
+        (getLocalStorageItem('foundMovies') && movies.length === 0))
+        &&
+        <CardListInfo
+          text={'Ничего не найдено'}
+        />}
+        {!showAllMovies && movies.length === 0 && !savedMoviesPage && 
         <CardListInfo
           text={'Введите запрос для поиска'}
         />
       }
-      {getLocalStorageItem('shortMovies') && getLocalStorageItem('foundMovies') && movies.length === 0 &&
-        <CardListInfo
-          text={'Ничего не найдено'}
-        />}
-      {getLocalStorageItem('foundMovies') && movies.length === 0 &&
-        <CardListInfo
-          text={'Ничего не найдено'}
-        />}
 
-      {!showAllMovies &&
-        <button onClick={handleShowAllMovies}>Показать все фильмы</button>
+      {!showAllMovies && !savedMoviesPage &&
+        <button
+          className='movies-list__button-show'
+          onClick={handleShowAllMovies}
+        >
+          Показать все фильмы
+        </button>
       }
       {amountCards < movies.length && (<button
         className='movies-list__button'

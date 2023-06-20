@@ -1,0 +1,13 @@
+.list-info {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+  color: #000;
+}
+
+@media screen and (max-width: 500px) {
+  .list-info {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}

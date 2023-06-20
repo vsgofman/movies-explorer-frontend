@@ -2,6 +2,7 @@ import './SavedMovies.css';
 import { BlockPage } from '../BlockPage/BlockPage';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
 function SavedMovies(props) {
   const {
@@ -17,6 +18,7 @@ function SavedMovies(props) {
     setSavedMovies,
     errorSearchMovie,
     setErrorSearchMovie,
+    isLoading,
 
 
     onSelectShortFilms,
@@ -44,14 +46,15 @@ function SavedMovies(props) {
           errorSearchMovie={errorSearchMovie}
           setErrorSearchMovie={setErrorSearchMovie}
         />
-        <MoviesCardList
-          movies={movies}
-          savedMovies={savedMovies}
-          savedMoviesPage={savedMoviesPage}
+        {isLoading ? <Preloader /> :
+          <MoviesCardList
+            movies={movies}
+            savedMovies={savedMovies}
+            savedMoviesPage={savedMoviesPage}
 
-          handleAddFavorites={handleAddFavorites}
-          handleRemoveFavorites={handleRemoveFavorites}
-        />
+            handleAddFavorites={handleAddFavorites}
+            handleRemoveFavorites={handleRemoveFavorites}
+          />}
       </section>
     </BlockPage >
   )
