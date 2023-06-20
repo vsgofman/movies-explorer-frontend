@@ -1,5 +1,4 @@
 import './App.css';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useState, useEffect, useCallback } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -17,6 +16,7 @@ import { modalMessages } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 import { getAllMovies } from '../../utils/MoviesApi';
 import { register, authorize } from '../../utils/Auth';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
 function App() {
