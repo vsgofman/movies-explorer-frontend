@@ -4,4 +4,4 @@
 
 **Ссылка на проект:** https://vsgof.movies.nomoredomains.work/
 
-**Ссылка на пулл-реквест:** 
+**[Ссылка на пулл-реквест](https://github.com/vsgofman/movies-explorer-frontend/pull/2#issue-1766289421)** 

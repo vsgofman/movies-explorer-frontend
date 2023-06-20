@@ -63,12 +63,8 @@ function App() {
     if (loggedIn) {
       mainApi.getProfile()
         .then((user) => {
-          console.log('сработало');
           setCurrentUser(user);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+        }).catch((err) => console.log(err))
     }
   }, [loggedIn]);
 
@@ -222,7 +218,7 @@ function App() {
       .then((res) => {
         setModalResponse({ open: true, status: true, message: REGISTER_OK });
         handleLogin({
-          email: email, 
+          email: email,
           password: password,
         })
         navigate('/movies');
