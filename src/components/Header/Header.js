@@ -7,16 +7,19 @@ import Navigation from '../Navigation/Navigation';
 function Header({ loggedIn, isOpen, onClose, handleNavClick }) {
   let location = useLocation();
   const modColorAdd = location.pathname === '/';
+  const mainPage = location.pathname === '/';
+  const showButton = (mainPage && loggedIn) || (!mainPage && loggedIn);
+  console.log(showButton);
 
   return (
     <header className={`header ${modColorAdd ? 'header_theme_pink' : ''}`}>
       <Link className='header__link' to='/'>
         <img className='header__logo' src={logo} alt='логотип' />
       </Link>
-      <button
+      {showButton && <button
         className={`button-menu header__button-menu ${modColorAdd ? 'button-menu_theme_pink' : ''}`}
         onClick={handleNavClick}
-      />
+      />}
       {loggedIn ? <Navigation isOpen={isOpen} onClose={onClose} /> : <NavTab />}
     </header>
   )

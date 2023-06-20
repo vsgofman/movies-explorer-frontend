@@ -53,11 +53,24 @@ function App() {
         setLocalStorageItem(true, 'loggedIn')
         navigate(location.pathname)
       }).catch((err) => console.log(`Некорректный токен. ${err}`))
-  }, [navigate, loggedIn])
+  }, [loggedIn])
 
   useEffect(() => {
     tokenCheck();
   }, [])
+
+  useEffect(() => {
+    if (loggedIn) {
+      mainApi.getProfile()
+        .then((user) => {
+          console.log('сработало');
+          setCurrentUser(user);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -250,6 +263,7 @@ function App() {
     setShowAllMovies(false);
     setAllMovies([]);
     setMoviesList([]);
+    setCurrentUser({});
     mainApi.setHeaderToken(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem('loggedIn');
