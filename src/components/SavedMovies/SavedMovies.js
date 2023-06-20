@@ -10,10 +10,13 @@ function SavedMovies(props) {
     movies,
     savedMovies,
     isShortSavedMovies,
+    setIsShortSavedMovies,
     selectShortMovies,
     savedMoviesPage,
     searchSavedMovies,
     setSavedMovies,
+    errorSearchMovie,
+    setErrorSearchMovie,
 
 
     onSelectShortFilms,
@@ -29,6 +32,7 @@ function SavedMovies(props) {
       <section className='saved-movies'>
         <SearchForm
           isShortSavedMovies={isShortSavedMovies}
+          setIsShortSavedMovies={setIsShortSavedMovies}
           selectShortMovies={selectShortMovies}
           onSelectShortFilms={onSelectShortFilms}
           searchInputValue={searchInputValue}
@@ -37,6 +41,8 @@ function SavedMovies(props) {
           savedMoviesPage={savedMoviesPage}
           searchSavedMovies={searchSavedMovies}
           setSavedMovies={setSavedMovies}
+          errorSearchMovie={errorSearchMovie}
+          setErrorSearchMovie={setErrorSearchMovie}
         />
         <MoviesCardList
           movies={movies}

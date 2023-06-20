@@ -14,8 +14,11 @@ function Movies(props) {
     isShortMovies,
     setIsShortMovies,
     searchMovies,
+    errorSearchMovie,
+    setErrorSearchMovie,
+    setIsShortSavedMovies,
 
-    
+
     setMoviesList,
     selectShortMovies,
     handleShowAllMovies,
@@ -32,6 +35,9 @@ function Movies(props) {
           isShortMovies={isShortMovies}
           setIsShortMovies={setIsShortMovies}
           searchMovies={searchMovies}
+          errorSearchMovie={errorSearchMovie}
+          setErrorSearchMovie={setErrorSearchMovie}
+          setIsShortSavedMovies={setIsShortSavedMovies}
 
           selectShortMovies={selectShortMovies}
           searchInputValue={searchInputValue}
@@ -45,7 +51,7 @@ function Movies(props) {
           savedMovies={savedMovies}
           showAllMovies={showAllMovies}
 
-          
+
           handleShowAllMovies={handleShowAllMovies}
           handleAddFavorites={handleAddFavorites}
           handleRemoveFavorites={handleRemoveFavorites}

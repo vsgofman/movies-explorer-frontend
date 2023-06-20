@@ -12,19 +12,23 @@ function SearchForm(props) {
     searchInputValue,
     setSearchInputValue,
     searchMovies,
+    errorSearchMovie,
+    setErrorSearchMovie,
     searchSavedMovies,
     setMoviesList,
     isShortSavedMovies,
+    setIsShortSavedMovies,
     savedMoviesPage,
     setSavedMovies,
   } = props;
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
-    // обнуление ошибки инпута
+    setErrorSearchMovie("");
     if (evt.target.value === '' && getLocalStorageItem('foundMovies')) {
       setMoviesList(getLocalStorageItem('allMovies'))
       setLocalStorageItem(false, 'checkbox')
-      setIsShortMovies(false)
+      setIsShortMovies(false);
+      setIsShortSavedMovies(false);
       setFoMovies([]);
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
@@ -36,6 +40,10 @@ function SearchForm(props) {
 
   function handleFilterMovies(evt) {
     evt.preventDefault();
+    if (!evt.target.closest('.search__form').checkValidity()) {
+      setErrorSearchMovie('Нужно ввести ключевое слово');
+      return;
+    }
     if (savedMoviesPage) {
       searchSavedMovies();
     } else {
@@ -45,7 +53,7 @@ function SearchForm(props) {
 
   return (
     <section className='search'>
-      <form className='search__form'>
+      <form className='search__form' noValidate>
         <img className='search__img' src={iconInput} alt='иконка поиска' />
         <input
           className='search__input'
@@ -55,6 +63,7 @@ function SearchForm(props) {
           placeholder='Фильм'
           value={searchInputValue || ""}
           onChange={handleChange}
+          required
         />
         <button
           className='search__button'
@@ -71,6 +80,7 @@ function SearchForm(props) {
           <p className='search__text'>Короткометражки</p>
         </div>
       </form>
+      <span className='search__input_error'>{errorSearchMovie}</span>
     </section>
 
   )

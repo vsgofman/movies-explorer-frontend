@@ -6,7 +6,7 @@ import { FormHandler } from '../../utils/FormHandler';
 
 function Profile({ loggedIn, location, signOut, onUpdateUser }) {
   const [inputsActive, setInputsActive] = useState(false);
-  const { handleChange, inputValues, inputErrors, setInputValues } = FormHandler();
+  const { handleChange, inputValues, inputErrors, setInputValues, setInputErrors } = FormHandler();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
@@ -32,7 +32,21 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
 
   function handleCancelEdit() {
     setInputsActive(false);
+    setInputValues({
+      ...inputValues,
+      name: currentUser.name,
+      email: currentUser.email,
+    })
+    setInputErrors({
+      ...inputErrors,
+      name: '',
+      email: ''
+    })
   }
+
+  const buttonInactive =
+  inputErrors.email || inputErrors.name ||
+  (currentUser.email === inputValues.email && currentUser.name === inputValues.name);
 
   return (
     <BlockPage loggedIn={loggedIn} location={location}>
@@ -52,10 +66,10 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
               placeholder='Виталий'
               onChange={handleChange}
               value={inputValues.name || ''}
-              minlength="2"
+              minLength='2'
               required
             />
-            <span className=''>
+            <span className='profile__input-block_error'>
               {inputErrors.name}
             </span>
           </div>
@@ -71,7 +85,7 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
               value={inputValues.email || ''}
               required
             />
-            <span className=''>
+            <span className='profile__input-block_error'>
               {inputErrors.email}
             </span>
           </div>
@@ -90,9 +104,10 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
           >Выйти из аккаунта
           </button>
           <button
-            className={`profile__button ${inputsActive && 'profile__button_active'}`}
+            className={`profile__button ${inputsActive && 'profile__button_active'} ${buttonInactive && "profile__button_disabled"}`}
             form='profile-form'
             type='submit'
+            disabled={buttonInactive}
             onClick={handleSubmit}
           >Сохранить
           </button>

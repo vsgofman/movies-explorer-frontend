@@ -3,12 +3,15 @@ import StartPage from '../StartPage/StartPage';
 import { FormHandler } from '../../utils/FormHandler';
 
 function Register({ onFormSubmit }) {
-  const { inputValues, handleChange } = FormHandler();
+  const { inputValues, inputErrors, handleChange } = FormHandler();
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    if (!inputValues.name || !inputValues.email || !inputValues.password) return
-    onFormSubmit(inputValues)
+    onFormSubmit({
+      name: inputValues.name,
+      email: inputValues.email,
+      password: inputValues.password,
+    })
   }
 
   return (
@@ -19,40 +22,46 @@ function Register({ onFormSubmit }) {
       questionToRedirect='Уже зарегистрированы?'
       redirectTo='/signin'
       onFormSubmit={handleSubmit}
+      inputValues={inputValues}
+      inputErrors={inputErrors}
     >
       <div className='input-block start-page__input-block'>
         <p className='form__caption'>Имя</p>
         <input
           id="name-input"
-          className="start-page__input"
+          className={`start-page__input ${inputErrors.name && 'start-page__input_type_error'}`}
           name="name"
           onChange={handleChange}
           value={inputValues.name || ''}
+          minLength='2'
+          maxLength='30'
           required
         />
+        <span className='input-block__error'>{inputErrors.name}</span>
       </div>
       <div className='input-block start-page__input-block'>
         <p className='form__caption'>E-mail</p>
         <input
           id="email-input"
-          className="start-page__input"
+          className={`start-page__input ${inputErrors.email && 'start-page__input_type_error'}`}
           type="email" name="email"
           onChange={handleChange}
           value={inputValues.email || ''}
           required
         />
+        <span className='input-block__error'>{inputErrors.email}</span>
       </div>
       <div className='input-block start-page__input-block'>
         <p className='form__caption'>Пароль</p>
         <input
           id="password-input"
-          className="start-page__input"
+          className={`start-page__input ${inputErrors.password && 'start-page__input_type_error'}`}
           type="password" name="password"
           onChange={handleChange}
           value={inputValues.password || ''}
           required
         />
-        <span className='input-block__error'>Что-то пошло не так...</span>
+        <span className='input-block__error'>{inputErrors.password}</span>
       </div>
     </StartPage>
   )

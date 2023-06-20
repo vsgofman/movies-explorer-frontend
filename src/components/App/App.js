@@ -13,9 +13,11 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Preloader from '../Preloader/Preloader';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
+import { modalMessages } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 import { getAllMovies } from '../../utils/MoviesApi';
 import { register, authorize } from '../../utils/Auth';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +38,11 @@ function App() {
   const [moviesList, setMoviesList] = useState([]);
   const [allMovies, setAllMovies] = useState(
     getLocalStorageItem('allMovies') || []);
+
+  const [errorSearchMovie, setErrorSearchMovie] = useState('');
   const [searchInputValue, setSearchInputValue] = useState('');
+  const [modalResponse, setModalResponse] = useState({ open: false, status: false });
+  const { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK } = modalMessages();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -130,13 +136,12 @@ function App() {
         .finally(() => setIsLoading(false))
     }
     if (isShortMovies) {
-      let shortMovies = sortMoviesByLength(allMovies);
-      let foundMovies = findMovies(shortMovies, searchInputValue)
-      setMoviesList(foundMovies)
+      let foundMovies = findMovies(allMovies, searchInputValue)
+      let shortMovies = sortMoviesByLength(foundMovies);
+      setMoviesList(shortMovies)
       setFoMovies(foundMovies)
       setLocalStorageItem(foundMovies, 'foundMovies')
-      setLocalStorageItem(foundMovies, 'shortMovies')
-      setFoMovies(foundMovies)
+      setLocalStorageItem(shortMovies, 'shortMovies')
       setLocalStorageItem(searchInputValue, 'inputValue')
     } else {
       let foundMovies = findMovies(allMovies, searchInputValue)
@@ -172,13 +177,13 @@ function App() {
         let shortMovies = sortMoviesByLength(moviesList);
         setMoviesList(shortMovies)
         setLocalStorageItem(shortMovies, 'shortMovies')
-      } else if (!checkbox && foMovies.length !== 0) {
+      } else if (!checkbox && foMovies) {
         console.log('!check i fo');
         setMoviesList(foMovies);
         localStorage.removeItem('shortMovies')
-      } else if (!checkbox && foMovies.length === 0) {
+      } else if (!checkbox && !foMovies) {
         console.log('!check i !fo');
-        setMoviesList(allMovies)
+        setMoviesList(getLocalStorageItem('allMovies'))
         localStorage.removeItem('shortMovies')
       }
     }
@@ -221,9 +226,9 @@ function App() {
       .then((res) => {
         console.log(res);
         console.log('всё ок');
-        // setModalResponse({ open: true, status: true });
+        setModalResponse({ open: true, status: true, message: REGISTER_OK });
         // navigate("/sign-in");
-      }).catch((err) => console.log(`Ошибка регистрации ${err}`))
+      }).catch(() => setModalResponse({ open: true, status: false, message: SOMETHING_WENT_WRONG }))
     // .catch(() => setModalResponse({ open: true, status: false }))
   }
 
@@ -242,8 +247,13 @@ function App() {
     mainApi.editProfile(name, email)
       .then((res) => {
         setCurrentUser(res);
-      }).catch(err => console.log(`Данные профиля не были обновлены. ${err}`))
+        setModalResponse({ open: true, status: true, message: PROFILE_EDIT_OK });
+      }).catch(() => setModalResponse({ open: true, status: false, message: SOMETHING_WENT_WRONG }));
     // тут можно вывести модалку с ошибкой и успешным обновлением
+  }
+
+  function closeModal() {
+    setModalResponse({ open: false, status: modalResponse.status });
   }
 
   function signOut() {
@@ -301,13 +311,15 @@ function App() {
                     isShortMovies={isShortMovies}
                     setIsShortMovies={setIsShortMovies}
                     searchMovies={searchMovies}
+                    errorSearchMovie={errorSearchMovie}
+                    setErrorSearchMovie={setErrorSearchMovie}
+                    setIsShortSavedMovies={setIsShortSavedMovies}
 
 
                     searchInputValue={searchInputValue}
                     setSearchInputValue={setSearchInputValue}
                     setMoviesList={setMoviesList}
                     handleShowAllMovies={handleShowAllMovies}
-
                     handleAddFavorites={handleAddFavorites}
                     handleRemoveFavorites={handleRemoveFavorites}
                   />}
@@ -321,10 +333,13 @@ function App() {
                     movies={savedMovies}
                     savedMovies={savedMovies}
                     isShortSavedMovies={isShortSavedMovies}
+                    setIsShortSavedMovies={setIsShortSavedMovies}
                     selectShortMovies={toggleShortMovies}
                     savedMoviesPage={savedMoviesPage}
                     searchSavedMovies={searchSavedMovies}
                     setSavedMovies={setSavedMovies}
+                    errorSearchMovie={errorSearchMovie}
+                    setErrorSearchMovie={setErrorSearchMovie}
 
 
 
@@ -361,6 +376,10 @@ function App() {
                 element={loggedIn ? (<Navigate to='/' />) : (<PageNotFound />)}
               />
             </Routes>
+            <InfoToolTip
+              modalResponse={modalResponse}
+              onClose={closeModal}
+            />
           </div>}
       </div>
     </CurrentUserContext.Provider>

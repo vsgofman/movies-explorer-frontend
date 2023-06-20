@@ -6,7 +6,6 @@ export function FormHandler() {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    console.log(evt.target)
 
     setInputValues({
       ...inputValues,
@@ -19,5 +18,5 @@ export function FormHandler() {
     });
   }
 
-  return { inputValues, inputErrors, setInputValues, handleChange }
+  return { inputValues, inputErrors, setInputValues, setInputErrors, handleChange }
 }

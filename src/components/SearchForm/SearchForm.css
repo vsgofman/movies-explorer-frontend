@@ -36,6 +36,16 @@
   border-bottom: 1px solid #bbb;
 }
 
+.search__input_error {
+  display: block;
+  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #FF4062;
+}
+
 .search__button {
   position: relative;
   flex-shrink: 0;

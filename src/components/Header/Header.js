@@ -13,7 +13,7 @@ function Header({ loggedIn }) {
       <Link className='header__link' to='/'>
         <img className='header__logo' src={logo} alt='логотип' />
       </Link>
-      <button className={`button-menu header__button-menu ${modColorAdd ? 'button-menu_color_pink' : ''}`} />
+      <button className={`button-menu header__button-menu ${modColorAdd ? 'button-menu_theme_pink' : ''}`} />
       {loggedIn ? <Navigation /> : <NavTab />}
     </header>
   )
