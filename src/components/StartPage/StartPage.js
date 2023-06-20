@@ -4,14 +4,16 @@ import StartPageForm from '../StartPageForm/StartPageForm';
 import { Link } from 'react-router-dom';
 
 function StartPage({ title, textButtonSubmit, textButtonRedirect, questionToRedirect, redirectTo, onFormSubmit, inputValues, inputErrors, children }) {
-  
-  const buttonInactive = 
-  !((inputErrors.email === '' && inputErrors.name === '' && inputErrors.password === '') ||
-  (inputErrors.email === '' && inputErrors.password === ''));
+
+  const buttonInactive =
+    !((inputErrors.email === '' && inputErrors.name === '' && inputErrors.password === '') ||
+      (inputErrors.email === '' && inputErrors.password === ''));
 
   return (
     <section className="start-page">
-      <img className='start-page__logo' src={logo} alt='логотип' />
+      <Link className='start-page__link' to='/'>
+        <img className='start-page__logo' src={logo} alt='логотип' />
+      </Link>
       <h2 className="start-page__title">{title}</h2>
       <StartPageForm>
         {children}
