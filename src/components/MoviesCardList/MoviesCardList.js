@@ -6,7 +6,6 @@ import { getLocalStorageItem } from '../../utils/constants';
 
 
 function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites, savedMoviesPage }) {
-
   const [amountCards, setAmountCards] = useState(12);
   useEffect(() => {
     let timer;
@@ -53,10 +52,11 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
           ))
         }
       </div>
-        {savedMoviesPage && movies.length === 0 &&
+      {savedMoviesPage && movies.length === 0 &&
         <CardListInfo
-        text={'Ничего не найдено'}
-      />}
+          text={'Ничего не найдено'}
+        />
+      }
       {((getLocalStorageItem('shortMovies') &&
         getLocalStorageItem('foundMovies') &&
         movies.length === 0)
@@ -65,13 +65,13 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
         &&
         <CardListInfo
           text={'Ничего не найдено'}
-        />}
-        {!showAllMovies && movies.length === 0 && !savedMoviesPage && 
+        />
+      }
+      {!showAllMovies && movies.length === 0 && !savedMoviesPage &&
         <CardListInfo
           text={'Введите запрос для поиска'}
         />
       }
-
       {!showAllMovies && !savedMoviesPage &&
         <button
           className='movies-list__button-show'

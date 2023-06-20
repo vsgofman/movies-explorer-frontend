@@ -5,7 +5,6 @@ import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants'
 
 function SearchForm(props) {
   const {
-    setFoMovies,
     isShortMovies,
     setIsShortMovies,
     selectShortMovies,
@@ -29,7 +28,6 @@ function SearchForm(props) {
       setLocalStorageItem(false, 'checkbox')
       setIsShortMovies(false);
       setIsShortSavedMovies(false);
-      setFoMovies([]);
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
       localStorage.removeItem('shortMovies')

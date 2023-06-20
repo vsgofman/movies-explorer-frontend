@@ -6,9 +6,7 @@ function Navigation() {
   return (
     <section className='navigation'>
       <div className='navigation__container'>
-        <button className='navigation__button-close' />
         <nav className='navigation__block'>
-          <NavLink className='navigation__link navigation__link_to_main' to='/'>Главная</NavLink>
           <NavLink className='navigation__link navigation__link_to_movies' to='/movies'>Фильмы</NavLink>
           <NavLink className='navigation__link navigation__link_to_saved-movies' to='/saved-movies'>Сохранённые фильмы</NavLink>
         </nav>

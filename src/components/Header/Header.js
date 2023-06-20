@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, isOpen, onClose, handleNavClick }) {
   let location = useLocation();
   const modColorAdd = location.pathname === '/';
 
@@ -13,8 +13,11 @@ function Header({ loggedIn }) {
       <Link className='header__link' to='/'>
         <img className='header__logo' src={logo} alt='логотип' />
       </Link>
-      <button className={`button-menu header__button-menu ${modColorAdd ? 'button-menu_theme_pink' : ''}`} />
-      {loggedIn ? <Navigation /> : <NavTab />}
+      <button
+        className={`button-menu header__button-menu ${modColorAdd ? 'button-menu_theme_pink' : ''}`}
+        onClick={handleNavClick}
+      />
+      {loggedIn ? <Navigation isOpen={isOpen} onClose={onClose} /> : <NavTab />}
     </header>
   )
 }

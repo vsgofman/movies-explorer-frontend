@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
 import { FormHandler } from '../../utils/FormHandler';
 
-function Profile({ loggedIn, location, signOut, onUpdateUser }) {
+function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) {
   const [inputsActive, setInputsActive] = useState(false);
   const { handleChange, inputValues, inputErrors, setInputValues, setInputErrors } = FormHandler();
   const currentUser = useContext(CurrentUserContext);
@@ -49,7 +49,7 @@ function Profile({ loggedIn, location, signOut, onUpdateUser }) {
   (currentUser.email === inputValues.email && currentUser.name === inputValues.name);
 
   return (
-    <BlockPage loggedIn={loggedIn} location={location}>
+    <BlockPage loggedIn={loggedIn} location={location} handleNavClick={handleNavClick}>
       <section className='profile'>
         <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
         <form

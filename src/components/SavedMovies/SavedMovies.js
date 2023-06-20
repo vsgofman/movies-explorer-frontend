@@ -19,8 +19,7 @@ function SavedMovies(props) {
     errorSearchMovie,
     setErrorSearchMovie,
     isLoading,
-
-
+    handleNavClick,
     onSelectShortFilms,
     searchInputValue,
     setSearchInputValue,
@@ -30,7 +29,7 @@ function SavedMovies(props) {
   } = props;
 
   return (
-    <BlockPage loggedIn={loggedIn} location={location}>
+    <BlockPage loggedIn={loggedIn} location={location} handleNavClick={handleNavClick}>
       <section className='saved-movies'>
         <SearchForm
           isShortSavedMovies={isShortSavedMovies}
@@ -51,7 +50,6 @@ function SavedMovies(props) {
             movies={movies}
             savedMovies={savedMovies}
             savedMoviesPage={savedMoviesPage}
-
             handleAddFavorites={handleAddFavorites}
             handleRemoveFavorites={handleRemoveFavorites}
           />}

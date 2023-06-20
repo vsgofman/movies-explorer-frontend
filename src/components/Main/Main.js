@@ -6,9 +6,15 @@ import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 import './Main.css';
 
-function Main({ loggedIn, location }) {
+function Main({ loggedIn, location, isOpen, onClose, handleNavClick }) {
   return (
-    <BlockPage loggedIn={loggedIn} location={location}>
+    <BlockPage
+      loggedIn={loggedIn}
+      location={location}
+      isOpen={isOpen}
+      onClose={onClose}
+      handleNavClick={handleNavClick}
+    >
       <main className='content'>
         <Promo />
         <AboutProject />

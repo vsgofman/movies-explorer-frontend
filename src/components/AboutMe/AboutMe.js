@@ -1,6 +1,6 @@
 import './AboutMe.css';
 import RunningTitle from '../RunningTitle/RunningTitle';
-import studentPhoto from '../../images/student_photo.svg';
+import studentPhoto from '../../images/my_photo.png';
 
 function AboutMe() {
   return (

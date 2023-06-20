@@ -11,7 +11,6 @@ function Movies(props) {
     movies,
     savedMovies,
     showAllMovies,
-    setFoMovies,
     isShortMovies,
     setIsShortMovies,
     searchMovies,
@@ -19,8 +18,7 @@ function Movies(props) {
     setErrorSearchMovie,
     setIsShortSavedMovies,
     isLoading,
-
-
+    handleNavClick,
     setMoviesList,
     selectShortMovies,
     handleShowAllMovies,
@@ -31,7 +29,7 @@ function Movies(props) {
   } = props;
 
   return (
-    <BlockPage loggedIn={loggedIn} location={location}>
+    <BlockPage loggedIn={loggedIn} location={location} handleNavClick={handleNavClick}>
       <section className='movies'>
         <SearchForm
           isShortMovies={isShortMovies}
@@ -40,21 +38,17 @@ function Movies(props) {
           errorSearchMovie={errorSearchMovie}
           setErrorSearchMovie={setErrorSearchMovie}
           setIsShortSavedMovies={setIsShortSavedMovies}
-
           selectShortMovies={selectShortMovies}
           searchInputValue={searchInputValue}
           setSearchInputValue={setSearchInputValue}
           setMoviesList={setMoviesList}
           showAllMovies={showAllMovies}
-          setFoMovies={setFoMovies}
         />
         {isLoading ? <Preloader /> :
           <MoviesCardList
             movies={movies}
             savedMovies={savedMovies}
             showAllMovies={showAllMovies}
-
-
             handleShowAllMovies={handleShowAllMovies}
             handleAddFavorites={handleAddFavorites}
             handleRemoveFavorites={handleRemoveFavorites}
