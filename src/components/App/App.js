@@ -26,7 +26,6 @@ function App() {
   );
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [foundMovies, setFoundMovies] = useState([]);
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
   const [showAllMovies, setShowAllMovies] = useState(
@@ -54,7 +53,7 @@ function App() {
         setLocalStorageItem(true, 'loggedIn')
         navigate(location.pathname)
       }).catch((err) => console.log(`Некорректный токен. ${err}`))
-  }, [navigate])
+  }, [navigate, loggedIn])
 
   useEffect(() => {
     tokenCheck();
@@ -222,8 +221,8 @@ function App() {
       .then(res => {
         localStorage.setItem("jwt", res.token)
         mainApi.setHeaderToken(res.token)
-      }).then(() => {
-        setLoggedIn(true)
+      }).then((res) => {
+        setLoggedIn(true);
         navigate('/movies');
       }).catch(err => console.log(`Не удаётся войти. ${err}`))
   }
