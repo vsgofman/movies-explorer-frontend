@@ -2,11 +2,11 @@ import { BlockPage } from '../BlockPage/BlockPage';
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
-import { FormHandler } from '../../utils/FormHandler';
+import { useFormHandler } from '../../utils/useFormHandler';
 
 function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) {
   const [inputsActive, setInputsActive] = useState(false);
-  const { handleChange, inputValues, inputErrors, setInputValues, setInputErrors } = FormHandler();
+  const { handleChange, inputValues, inputErrors, setInputValues, setInputErrors } = useFormHandler();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {

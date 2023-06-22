@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function FormHandler() {
+export function useFormHandler() {
   const [inputValues, setInputValues] = useState('');
   const [inputErrors, setInputErrors] = useState({});
 

@@ -1,9 +1,9 @@
 import './Register.css';
 import StartPage from '../StartPage/StartPage';
-import { FormHandler } from '../../utils/FormHandler';
+import { useFormHandler } from '../../utils/useFormHandler';
 
 function Register({ onFormSubmit }) {
-  const { inputValues, inputErrors, handleChange } = FormHandler();
+  const { inputValues, inputErrors, handleChange } = useFormHandler();
 
   function handleSubmit(evt) {
     evt.preventDefault();

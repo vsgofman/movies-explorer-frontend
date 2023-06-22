@@ -42,7 +42,7 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
             <MoviesCard
               movie={movie}
               onSavedClick={onSavedClick}
-              key={movie.id}
+              key={movie.id || movie._id}
               isSaved={savedMovies.find((item) => item.movieId === movie.id)}
               savedMovies={savedMovies}
               savedMoviesPage={savedMoviesPage}
