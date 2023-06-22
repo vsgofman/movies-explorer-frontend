@@ -3,10 +3,15 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import CardListInfo from '../CardListInfo/CardListInfo';
 import { getLocalStorageItem } from '../../utils/constants';
+import { quantityCards, quantityCardsAdd, widthScreen } from '../../utils/constants';
 
 
 function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, handleShowAllMovies, handleAddFavorites, handleRemoveFavorites, savedMoviesPage }) {
-  const [amountCards, setAmountCards] = useState(12);
+  const { QUANTITY_CARDS_S, QUANTITY_CARDS_M, QUANTITY_CARDS_L } = quantityCards();
+  const { QUANTITY_CARDS_ADD_S, QUANTITY_CARDS_ADD_M } = quantityCardsAdd();
+  const { WIDTH_SCREEN_S, WIDTH_SCREEN_M } = widthScreen();
+  const [amountCards, setAmountCards] = useState(QUANTITY_CARDS_L);
+
   useEffect(() => {
     let timer;
     const changeAmountTimer = () => {
@@ -16,21 +21,21 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
   });
 
   function changeAmountInWidth() {
-    if (window.innerWidth < 651) {
-      return setAmountCards(5);
+    if (window.innerWidth < WIDTH_SCREEN_S) {
+      return setAmountCards(QUANTITY_CARDS_S);
     }
-    if (window.innerWidth < 918) {
-      return setAmountCards(8);
+    if (window.innerWidth <= WIDTH_SCREEN_M) {
+      return setAmountCards(QUANTITY_CARDS_M);
     }
     setAmountCards(12);
   };
 
   function handleMoreMovies() {
-    if (window.innerWidth > 917) {
-      return setAmountCards(amountCards + 3);
+    if (window.innerWidth > WIDTH_SCREEN_M) {
+      return setAmountCards(amountCards + QUANTITY_CARDS_ADD_M);
     }
-    if (window.innerWidth < 918) {
-      return setAmountCards(amountCards + 2);
+    if (window.innerWidth <= WIDTH_SCREEN_M) {
+      return setAmountCards(amountCards + QUANTITY_CARDS_ADD_S);
     }
   };
 

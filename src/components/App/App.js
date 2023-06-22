@@ -12,7 +12,7 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import { setLocalStorageItem, getLocalStorageItem } from '../../utils/constants';
-import { modalMessages } from '../../utils/constants';
+import { modalMessages, SHORT_FILM_DURATION } from '../../utils/constants';
 import mainApi from '../../utils/MainApi';
 import { getAllMovies } from '../../utils/MoviesApi';
 import { register, authorize } from '../../utils/Auth';
@@ -106,7 +106,7 @@ function App() {
 
   function sortMoviesByLength(movies) {
     const sortMovies = movies.filter((movie) => {
-      return movie.duration < 40;
+      return movie.duration < SHORT_FILM_DURATION;
     });
     return sortMovies;
   }
