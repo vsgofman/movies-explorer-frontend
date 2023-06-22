@@ -25,10 +25,14 @@
 
 .navigation__link {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 18px;
   text-decoration: none;
   color: #000;
+}
+
+.navigation__link.active {
+  font-weight: 500;
 }
 
 .navigation__link_to_movies {
@@ -37,7 +41,6 @@
 
 .navigation__link_to_saved-movies {
   margin-right: 50px;
-  font-weight: 400;
 }
 
 .navigation__link_to_profile {
