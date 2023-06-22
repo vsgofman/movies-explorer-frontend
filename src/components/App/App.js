@@ -191,10 +191,6 @@ function App() {
     return;
   }
 
-  function handleSavedMovies(movies) {
-    setSavedMovies(movies);
-  }
-
   function handleSavedMoviesCheckbox(checkbox) {
     if (checkbox) {
       setSavedMovies(
@@ -289,7 +285,9 @@ function App() {
 
   function handleRemoveFavorites(movie) {
     mainApi.deleteMovie(movie._id)
-      .then(setSavedMovies((state) => state.filter((stateItem) => stateItem._id !== movie._id)))
+      .then(() => {
+        setSavedMovies((state) => state.filter((stateItem) => stateItem._id !== movie._id))
+      })
       .catch((err) => console.log(`Не удалось удалить фильм. ${err}`))
   }
 
@@ -354,8 +352,6 @@ function App() {
                   setSearchInputValue={setSearchInputValue}
                   handleAddFavorites={handleAddFavorites}
                   handleRemoveFavorites={handleRemoveFavorites}
-
-                  handleSavedMovies={handleSavedMovies}
                 />}
             />
             <Route path='/profile'

@@ -18,20 +18,21 @@ function SearchForm(props) {
     isShortSavedMovies,
     setIsShortSavedMovies,
     savedMoviesPage,
-    // setSavedMovies,
-
-    handleSavedMovies,
+    setSavedMovies,
   } = props;
 
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
     setErrorSearchMovie("");
+    if (evt.target.value === '' && savedMoviesPage) {
+      setIsShortSavedMovies(false)
+      setSavedMovies(getLocalStorageItem('savedMovies'))
+    }
     if (evt.target.value === '' && getLocalStorageItem('foundMovies')) {
       setMoviesList(getLocalStorageItem('allMovies'))
       setLocalStorageItem(false, 'checkbox')
       setIsShortMovies(false);
       setIsShortSavedMovies(false);
-      // handleSavedMovies(getLocalStorageItem('savedMovies'))
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
       localStorage.removeItem('shortMovies')
@@ -56,30 +57,34 @@ function SearchForm(props) {
   return (
     <section className='search'>
       <form className='search__form' noValidate>
-        <img className='search__img' src={iconInput} alt='иконка поиска' />
-        <input
-          className='search__input'
-          id='search-input'
-          type='text'
-          name='search'
-          placeholder='Фильм'
-          value={searchInputValue || ""}
-          onChange={handleChange}
-          required
-        />
-        <button
-          className='search__button'
-          aria-label='Поиск'
-          onClick={handleFilterMovies}
-        />
-        <div className='search__filter'>
-          <FilterCheckbox
-            isShortMovies={isShortMovies}
-            selectShortMovies={selectShortMovies}
-            isShortSavedMovies={isShortSavedMovies}
-            savedMoviesPage={savedMoviesPage}
+        <div className='search__block'>
+          <img className='search__img' src={iconInput} alt='иконка поиска' />
+          <input
+            className='search__input'
+            id='search-input'
+            type='text'
+            name='search'
+            placeholder='Фильм'
+            value={searchInputValue || ""}
+            onChange={handleChange}
+            required
           />
-          <p className='search__text'>Короткометражки</p>
+        </div>
+        <div className='search__block'>
+          <button
+            className='search__button'
+            aria-label='Поиск'
+            onClick={handleFilterMovies}
+          />
+          <div className='search__filter'>
+            <FilterCheckbox
+              isShortMovies={isShortMovies}
+              selectShortMovies={selectShortMovies}
+              isShortSavedMovies={isShortSavedMovies}
+              savedMoviesPage={savedMoviesPage}
+            />
+            <p className='search__text'>Короткометражки</p>
+          </div>
         </div>
       </form>
       <span className='search__input_error'>{errorSearchMovie}</span>
