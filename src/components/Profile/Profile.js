@@ -5,8 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { useFormHandler } from '../../utils/useFormHandler';
 import { REGEX_EMAIL, ERR_MESSAGE_EMAIL } from '../../utils/constants';
 
-function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) {
-  const [inputsActive, setInputsActive] = useState(false);
+function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick, inputsActive, setInputsActive }) {
   const { handleChange, inputValues, inputErrors, setInputValues, setInputErrors } = useFormHandler();
   const currentUser = useContext(CurrentUserContext);
 
@@ -24,7 +23,6 @@ function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) 
       name: inputValues.name,
       email: inputValues.email,
     });
-    setInputsActive(false);
   }
 
   function handleStartEdit() {

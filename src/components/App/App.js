@@ -38,6 +38,7 @@ function App() {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [modalResponse, setModalResponse] = useState({ open: false, status: false });
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+  const [inputsActive, setInputsActive] = useState(false);
   const { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK } = modalMessages();
   const navigate = useNavigate();
   const location = useLocation();
@@ -247,7 +248,10 @@ function App() {
       .then((res) => {
         setCurrentUser(res);
         setModalResponse({ open: true, status: true, message: PROFILE_EDIT_OK });
-      }).catch(() => setModalResponse({ open: true, status: false, message: SOMETHING_WENT_WRONG }));
+        setInputsActive(false);
+      }).catch((err) => {
+        setModalResponse({ open: true, status: false, message: SOMETHING_WENT_WRONG })
+      });
   }
 
   function handleNavButtonClick() { setIsNavigationOpen(true) };
@@ -363,6 +367,8 @@ function App() {
                   signOut={signOut}
                   onUpdateUser={handleUpdateUser}
                   handleNavClick={handleNavButtonClick}
+                  inputsActive={inputsActive}
+                  setInputsActive={setInputsActive}
                 />}
             />
             <Route path='/signin'
