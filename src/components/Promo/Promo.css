@@ -6,16 +6,26 @@
 
 .promo__wrapper {
   background-image: url(../../images/landing-logo_l.png);
-  background-position: bottom 60px right 70px;
+  background-position: bottom 60px right 30px;
   background-repeat: no-repeat;
 }
 
 .promo__title {
   max-width: 626px;
-  margin-left: 70px;
+  margin-left: 50px;
   font-size: 40px;
   font-weight: 400;
   line-height: 52px;
+}
+
+@media screen and (max-width: 1023px) {
+  .promo__wrapper {
+    background-position: bottom 60px right 70px;
+  }
+
+  .promo__title {
+    margin-left: 30px;
+  }
 }
 
 @media screen and (max-width: 862px) {
