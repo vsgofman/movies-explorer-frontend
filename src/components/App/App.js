@@ -124,13 +124,19 @@ function App() {
       getAllMovies()
         .then((allMovies) => {
           setLocalStorageItem(allMovies, 'allMovies');
-          setAllMovies(allMovies)
-          let foundMovies = findMovies(getLocalStorageItem('allMovies'), searchInputValue)
-          setMoviesList(foundMovies)
-          setLocalStorageItem(foundMovies, 'foundMovies')
-          setShowAllMovies(true)
-          setLocalStorageItem(true, 'showAllMovies')
-          setLocalStorageItem(searchInputValue, 'inputValue')
+          setAllMovies(allMovies);
+          let foundMovies = findMovies(getLocalStorageItem('allMovies'), searchInputValue);
+          setLocalStorageItem(foundMovies, 'foundMovies');
+          setLocalStorageItem(true, 'showAllMovies');
+          setShowAllMovies(true);
+          setLocalStorageItem(searchInputValue, 'inputValue');
+          if (!isShortMovies) {
+            return setMoviesList(foundMovies);
+          } else {
+            let shortMovies = sortMoviesByLength(foundMovies);
+            setLocalStorageItem(shortMovies, 'shortMovies');
+            setMoviesList(shortMovies);
+          }
         }).catch((err) => console.log(`Данные не загрузились. ${err}`))
         .finally(() => setIsLoading(false))
     }

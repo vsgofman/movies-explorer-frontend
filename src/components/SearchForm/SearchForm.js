@@ -31,7 +31,7 @@ function SearchForm(props) {
       setLocalStorageItem(false, 'checkbox')
       setIsShortMovies(false);
       setIsShortSavedMovies(false);
-      handleSavedMovies(getLocalStorageItem('savedMovies'))
+      // handleSavedMovies(getLocalStorageItem('savedMovies'))
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
       localStorage.removeItem('shortMovies')
