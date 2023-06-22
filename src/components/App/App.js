@@ -381,7 +381,9 @@ function App() {
             />
             <Route
               path="*"
-              element={loggedIn ? (<Navigate to='/' />) : (<PageNotFound />)}
+              element={<PageNotFound
+                loggedIn={loggedIn}
+              />}
             />
           </Routes>
           <InfoToolTip
