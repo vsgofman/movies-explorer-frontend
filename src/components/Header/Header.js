@@ -9,7 +9,6 @@ function Header({ loggedIn, isOpen, onClose, handleNavClick }) {
   const modColorAdd = location.pathname === '/';
   const mainPage = location.pathname === '/';
   const showButton = (mainPage && loggedIn) || (!mainPage && loggedIn);
-  console.log(showButton);
 
   return (
     <header className={`header ${modColorAdd ? 'header_theme_pink' : ''}`}>

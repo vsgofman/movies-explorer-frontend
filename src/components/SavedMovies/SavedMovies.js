@@ -26,6 +26,8 @@ function SavedMovies(props) {
     searchMovies,
     handleAddFavorites,
     handleRemoveFavorites,
+
+    handleSavedMovies,
   } = props;
 
   return (
@@ -44,6 +46,8 @@ function SavedMovies(props) {
           setSavedMovies={setSavedMovies}
           errorSearchMovie={errorSearchMovie}
           setErrorSearchMovie={setErrorSearchMovie}
+
+          handleSavedMovies={handleSavedMovies}
         />
         {isLoading ? <Preloader /> :
           <MoviesCardList

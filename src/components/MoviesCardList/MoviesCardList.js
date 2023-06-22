@@ -57,12 +57,9 @@ function MoviesCardList({ movies, savedMovies, showAllMovies, onSavedClick, hand
           text={'Ничего не найдено'}
         />
       }
-      {((getLocalStorageItem('shortMovies') &&
-        getLocalStorageItem('foundMovies') &&
-        movies.length === 0)
-        ||
-        (getLocalStorageItem('foundMovies') && movies.length === 0))
-        &&
+      {(!savedMoviesPage &&
+        (getLocalStorageItem('shortMovies') || getLocalStorageItem('foundMovies')) &&
+        movies.length === 0) &&
         <CardListInfo
           text={'Ничего не найдено'}
         />

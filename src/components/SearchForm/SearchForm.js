@@ -18,8 +18,11 @@ function SearchForm(props) {
     isShortSavedMovies,
     setIsShortSavedMovies,
     savedMoviesPage,
-    setSavedMovies,
+    // setSavedMovies,
+
+    handleSavedMovies,
   } = props;
+
   function handleChange(evt) {
     setSearchInputValue(evt.target.value);
     setErrorSearchMovie("");
@@ -28,13 +31,14 @@ function SearchForm(props) {
       setLocalStorageItem(false, 'checkbox')
       setIsShortMovies(false);
       setIsShortSavedMovies(false);
+      handleSavedMovies(getLocalStorageItem('savedMovies'))
       localStorage.removeItem('foundMovies')
       localStorage.removeItem('inputValue')
       localStorage.removeItem('shortMovies')
-    } else if (savedMoviesPage) {
-      setSavedMovies(getLocalStorageItem('savedMovies'))
     }
   }
+
+
 
   function handleFilterMovies(evt) {
     evt.preventDefault();

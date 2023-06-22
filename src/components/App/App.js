@@ -185,6 +185,10 @@ function App() {
     return;
   }
 
+  function handleSavedMovies(movies) {
+    setSavedMovies(movies);
+  }
+
   function handleSavedMoviesCheckbox(checkbox) {
     if (checkbox) {
       setSavedMovies(
@@ -344,6 +348,8 @@ function App() {
                   setSearchInputValue={setSearchInputValue}
                   handleAddFavorites={handleAddFavorites}
                   handleRemoveFavorites={handleRemoveFavorites}
+
+                  handleSavedMovies={handleSavedMovies}
                 />}
             />
             <Route path='/profile'
