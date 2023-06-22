@@ -262,7 +262,7 @@ function App() {
   }
 
   function signOut() {
-    navigate("/signin")
+    navigate('/')
     setLoggedIn(false);
     setIsShortMovies(false);
     setSearchInputValue('');
