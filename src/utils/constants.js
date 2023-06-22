@@ -2,6 +2,8 @@ export const URL_MOVIES = 'https://api.nomoreparties.co/beatfilm-movies';
 export const URL_MAIN = 'https://vsgof.movies-api.nomoredomains.monster';
 export const URL_LOCAL = '';
 export const SHORT_FILM_DURATION = 40;
+export const REGEX_EMAIL = "[A-z0-9!#$%&'*+-/=?^_`{|]{1,64}@[A-z0-9-.]{2,253}\\.[A-z]{2,63}";
+export const ERR_MESSAGE_EMAIL = 'Введите корректный email';
 
 export const quantityCards = () => {
   const QUANTITY_CARDS_L = 12;

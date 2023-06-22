@@ -3,6 +3,7 @@ import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
 import { useFormHandler } from '../../utils/useFormHandler';
+import { REGEX_EMAIL, ERR_MESSAGE_EMAIL } from '../../utils/constants';
 
 function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) {
   const [inputsActive, setInputsActive] = useState(false);
@@ -83,10 +84,11 @@ function Profile({ loggedIn, location, signOut, onUpdateUser, handleNavClick }) 
               placeholder='pochta@yandex.ru'
               onChange={handleChange}
               value={inputValues.email || ''}
+              pattern={REGEX_EMAIL}
               required
             />
             <span className='profile__input-block_error'>
-              {inputErrors.email}
+              {inputErrors?.email && ERR_MESSAGE_EMAIL}
             </span>
           </div>
         </form>

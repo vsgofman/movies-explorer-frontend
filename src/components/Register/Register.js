@@ -1,6 +1,7 @@
 import './Register.css';
 import StartPage from '../StartPage/StartPage';
 import { useFormHandler } from '../../utils/useFormHandler';
+import { REGEX_EMAIL, ERR_MESSAGE_EMAIL } from '../../utils/constants';
 
 function Register({ onFormSubmit }) {
   const { inputValues, inputErrors, handleChange } = useFormHandler();
@@ -47,9 +48,10 @@ function Register({ onFormSubmit }) {
           type="email" name="email"
           onChange={handleChange}
           value={inputValues.email || ''}
+          pattern={REGEX_EMAIL}
           required
         />
-        <span className='input-block__error'>{inputErrors.email}</span>
+        <span className='input-block__error'>{inputErrors?.email && ERR_MESSAGE_EMAIL}</span>
       </div>
       <div className='input-block start-page__input-block'>
         <p className='form__caption'>Пароль</p>
