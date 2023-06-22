@@ -1,3 +1,4 @@
+import '../App/App.css';
 import './SavedMovies.css';
 import { BlockPage } from '../BlockPage/BlockPage';
 import SearchForm from '../SearchForm/SearchForm';
@@ -33,30 +34,32 @@ function SavedMovies(props) {
   return (
     <BlockPage loggedIn={loggedIn} location={location} handleNavClick={handleNavClick}>
       <section className='saved-movies'>
-        <SearchForm
-          isShortSavedMovies={isShortSavedMovies}
-          setIsShortSavedMovies={setIsShortSavedMovies}
-          selectShortMovies={selectShortMovies}
-          onSelectShortFilms={onSelectShortFilms}
-          searchInputValue={searchInputValue}
-          setSearchInputValue={setSearchInputValue}
-          searchMovies={searchMovies}
-          savedMoviesPage={savedMoviesPage}
-          searchSavedMovies={searchSavedMovies}
-          setSavedMovies={setSavedMovies}
-          errorSearchMovie={errorSearchMovie}
-          setErrorSearchMovie={setErrorSearchMovie}
-
-          handleSavedMovies={handleSavedMovies}
-        />
-        {isLoading ? <Preloader /> :
-          <MoviesCardList
-            movies={movies}
-            savedMovies={savedMovies}
+        <div className='wrapper'>
+          <SearchForm
+            isShortSavedMovies={isShortSavedMovies}
+            setIsShortSavedMovies={setIsShortSavedMovies}
+            selectShortMovies={selectShortMovies}
+            onSelectShortFilms={onSelectShortFilms}
+            searchInputValue={searchInputValue}
+            setSearchInputValue={setSearchInputValue}
+            searchMovies={searchMovies}
             savedMoviesPage={savedMoviesPage}
-            handleAddFavorites={handleAddFavorites}
-            handleRemoveFavorites={handleRemoveFavorites}
-          />}
+            searchSavedMovies={searchSavedMovies}
+            setSavedMovies={setSavedMovies}
+            errorSearchMovie={errorSearchMovie}
+            setErrorSearchMovie={setErrorSearchMovie}
+
+            handleSavedMovies={handleSavedMovies}
+          />
+          {isLoading ? <Preloader /> :
+            <MoviesCardList
+              movies={movies}
+              savedMovies={savedMovies}
+              savedMoviesPage={savedMoviesPage}
+              handleAddFavorites={handleAddFavorites}
+              handleRemoveFavorites={handleRemoveFavorites}
+            />}
+        </div>
       </section>
     </BlockPage >
   )

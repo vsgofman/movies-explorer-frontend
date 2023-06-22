@@ -7,6 +7,12 @@
   background-color: #fff;
 }
 
+.header_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .header__link {
   width: 38px;
   height: 38px;

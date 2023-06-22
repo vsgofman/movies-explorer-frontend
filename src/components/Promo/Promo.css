@@ -2,6 +2,9 @@
   height: 634px;
   padding-top: 50px;
   background-color: #F3C1F8;
+}
+
+.promo__wrapper {
   background-image: url(../../images/landing-logo_l.png);
   background-position: bottom 60px right 70px;
   background-repeat: no-repeat;
@@ -16,7 +19,7 @@
 }
 
 @media screen and (max-width: 862px) {
-  .promo {
+  .promo__wrapper {
     background-position: bottom 60px center;
   }
 }
@@ -25,6 +28,9 @@
   .promo {
     height: 918px;
     padding-top: 300px;
+  }
+
+  .promo__wrapper {
     background-image: url(../../images/landing-logo_m.png);
     background-position: bottom 70px center;
   }
