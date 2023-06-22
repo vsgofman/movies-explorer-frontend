@@ -31,8 +31,9 @@ export const modalMessages = () => {
   const REGISTER_OK = 'Вы успешно зарегистрировались!';
   const PROFILE_EDIT_OK = 'Данные профиля успешно обновлены!';
   const SOMETHING_WENT_WRONG = 'Что-то пошло не так! Попробуйте ещё раз.';
+  const EMAIL_ALREADY_EXIST = 'Пользователь с таким email уже существует!';
 
-  return { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK }
+  return { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK, EMAIL_ALREADY_EXIST }
 }
 
 export const setLocalStorageItem = (value, name) => {

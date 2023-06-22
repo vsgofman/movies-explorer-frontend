@@ -39,7 +39,7 @@ function App() {
   const [modalResponse, setModalResponse] = useState({ open: false, status: false });
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   const [inputsActive, setInputsActive] = useState(false);
-  const { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK } = modalMessages();
+  const { REGISTER_OK, SOMETHING_WENT_WRONG, PROFILE_EDIT_OK, EMAIL_ALREADY_EXIST } = modalMessages();
   const navigate = useNavigate();
   const location = useLocation();
   const savedMoviesPage = location.pathname === '/saved-movies';
@@ -250,6 +250,10 @@ function App() {
         setModalResponse({ open: true, status: true, message: PROFILE_EDIT_OK });
         setInputsActive(false);
       }).catch((err) => {
+        if (err.includes('409')) {
+          setModalResponse({ open: true, status: false, message: EMAIL_ALREADY_EXIST })
+          return;
+        }
         setModalResponse({ open: true, status: false, message: SOMETHING_WENT_WRONG })
       });
   }
