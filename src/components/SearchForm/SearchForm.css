@@ -21,13 +21,17 @@
   align-items: center;
 }
 
+.search__block_input {
+  width: 65%;
+}
+
 .search__img {
   margin-right: 10px;
 }
 
 .search__input {
   max-width: 670px;
-  width: 60%;
+  width: 100%;
   margin-right: 10px;
   font-size: 18px;
   font-weight: 400;
@@ -120,7 +124,6 @@
 @media screen and (max-width: 650px) {
   .search__input {
     max-width: none;
-    width: 80%;
   }
 
   .search__img {

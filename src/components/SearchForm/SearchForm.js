@@ -57,7 +57,7 @@ function SearchForm(props) {
   return (
     <section className='search'>
       <form className='search__form' noValidate>
-        <div className='search__block'>
+        <div className='search__block search__block_input'>
           <img className='search__img' src={iconInput} alt='иконка поиска' />
           <input
             className='search__input'
