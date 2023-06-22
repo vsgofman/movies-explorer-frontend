@@ -370,12 +370,12 @@ function App() {
                 />}
             />
             <Route path='/signin'
-              element={<Login
+              element={loggedIn ? <Navigate to="/" /> : <Login
                 onFormSubmit={handleLogin}
               />}
             />
             <Route path='/signup'
-              element={<Register
+              element={loggedIn ? <Navigate to="/" /> : <Register
                 onFormSubmit={handleRegister}
               />}
             />
