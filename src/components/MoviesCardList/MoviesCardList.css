@@ -28,6 +28,26 @@
   cursor: pointer;
 }
 
+.movies-list__button-show {
+  margin-top: 60px;
+  width: 80%;
+  max-width: 350px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color .1s linear;
+}
+
+.movies-list__button-show:hover {
+  background-color: #F3C1F8;
+}
+
 @media screen and (max-width: 768px) {
   .movies-list__block {
     grid-gap: 30px;
@@ -43,5 +63,13 @@
 @media screen and (max-width: 550px) {
   .movies-list {
     padding: 50px 0 80px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movies-list__button-show {
+    margin-top: 50px;
+    font-size: 12px;
+    line-height: 15px;
   }
 }
