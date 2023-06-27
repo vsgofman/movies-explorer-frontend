@@ -1,7 +1,25 @@
-# movies-explorer-frontend
+# Фронтенд сервиса Movies Explorer
 
-**Ссылка на макет:** https://disk.yandex.ru/d/2QY92n2FUG4hhA
+_Пользовательская часть дипломной работы курса веб-разработчик в Яндекс Практикуме.  
+На главной странице собрана информация о проекте, примененных технологиях, времени разработки, краткая информация о студенте, и ссылки на некоторые проекты из портфолио. После регистрации доступен поиск фильмов и возможность добавления их в избранное, страница данных пользователя с полями для редактирования._
 
-**Ссылка на проект:** https://vsgof.movies.nomoredomains.work/
+Функционал приложения:  
+- регистрация/авторизация  
+- поиск фильмов
+- редактирование данных профиля (имени и почты)
+- сохранение/удаление фильма
 
-**[Ссылка на пулл-реквест](https://github.com/vsgofman/movies-explorer-frontend/pull/2#issue-1766289421)** 
+## Ссылки
+_Проект задеплоен на виртуальную машину в Yandex Cloud._  
+**IP-адрес** 158.160.59.176  
+**Frontend** https://vsgof.movies.nomoredomains.work/  
+**Backend** https://vsgof.movies-api.nomoredomains.monster  
+**Ссылка на макет:** https://disk.yandex.ru/d/2QY92n2FUG4hhA  
+**Адрес репозитория:** https://github.com/vsgofman/movies-explorer-frontend.git
+
+## Установка и запуск проекта
+
+`git clone - https://github.com/vsgofman/movies-explorer-frontend` — клонирует репозиторий на устройство  
+`npm ci` - устанавливает зависимости  
+`npm start` — локальный запуск в dev режиме  
+`npm run build` — сборка проекта
