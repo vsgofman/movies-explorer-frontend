@@ -19,27 +19,31 @@ class MainApi extends React.Component {
     return res.json();
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._getResponseData)
+  }
+
   getProfile() {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       headers: this._headers
-    }).then(res => this._getResponseData(res))
+    })
   }
 
   editProfile(name, email) {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name,
         email
       })
-    }).then(res => this._getResponseData(res))
+    })
   }
 
   getSavedMovies() {
-    return fetch(`${this._url}/movies`, {
+    return this._request(`${this._url}/movies`, {
       headers: this._headers,
-    }).then(res => this._getResponseData(res))
+    })
   }
 
   saveMovie(movie) {
@@ -55,7 +59,7 @@ class MainApi extends React.Component {
       nameRU,
       nameEN
     } = movie;
-    return fetch(`${this._url}/movies`, {
+    return this._request(`${this._url}/movies`, {
       method: "POST",
         headers: this._headers,
       body: JSON.stringify({
@@ -71,14 +75,14 @@ class MainApi extends React.Component {
         nameRU: nameRU,
         nameEN: nameEN,
       })
-    }).then(res => this._getResponseData(res));
+    })
   }
 
   deleteMovie(id) {
-    return fetch(`${this._url}/movies/${id}`, {
+    return this._request(`${this._url}/movies/${id}`, {
       method: "DELETE",
         headers: this._headers
-    }).then(res => this._getResponseData(res));
+    })
   }
 }
 
